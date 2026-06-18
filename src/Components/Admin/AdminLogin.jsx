@@ -31,7 +31,7 @@ const AdminLogin = () => {
           <div className="sidebar-brand-icon mx-auto mb-3" style={{ width: '60px', height: '60px', borderRadius: '15px' }}>
             <span style={{ fontSize: '1.2rem' }}>SOS</span>
           </div>
-          <h2 className="fw-bold text-white mb-1">Administrative Login</h2>
+          <h2 className="fw-bold text-dark mb-1">Administrative Login</h2>
           <p className="small text-muted">Enter your secure credentials to proceed</p>
         </div>
 
