@@ -379,7 +379,7 @@ const JoinAsPartner = () => {
                     ) : (
                       <>
                         <span>Submit Application</span>
-                        <CheckCircle2 size={16} className="ms-2" />
+                       
                       </>
                     )}
                   </button>
