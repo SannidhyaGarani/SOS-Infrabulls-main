@@ -72,7 +72,7 @@ function Breadcrumb() {
                             Premium <strong>Properties</strong>
                         </h1>
                         <p className="text-white text-lg opacity-80">
-                            Guiding Mahanta Group with wisdom, integrity, and forward-thinking vision
+                            Guiding SOS Infrabulls with wisdom, integrity, and forward-thinking vision
                         </p>
                     </div>
                 </div>
