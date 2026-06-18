@@ -1,0 +1,504 @@
+/* ======================================================
+   BASE & RESET
+   ====================================================== */
+.project-detail-page {
+  background: #ffffff;
+  font-family: inherit;
+  line-height: 1.6;
+}
+
+.project-detail-state {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-muted);
+}
+
+.project-detail-state.error {
+  color: #dc2626;
+}
+
+/* ======================================================
+   HERO SECTION - Improved with better spacing
+   ====================================================== */
+.project-hero {
+  height: 55vh;
+  min-height: 400px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.project-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+}
+
+.project-hero-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: var(--radius-lg);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  /* box-shadow: var(--shadow-lg); */
+  animation: slideUp 0.6s ease-out;
+  padding: 50px;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hero top bar */
+.project-hero-card > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.back-btn {
+  background: rgba(17, 116, 214, 0.1);
+  color: var(--primary-dark);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(17, 116, 214, 0.2);
+}
+
+.back-btn:hover {
+  background: rgba(17, 116, 214, 0.2);
+  transform: translateX(-2px);
+}
+
+.status-badge {
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-badge.running {
+  background: var(--primary);
+  color: white;
+}
+
+.status-badge.completed {
+  background: #10b981;
+  color: white;
+}
+
+/* Hero title area */
+.hero-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+/* Meta information */
+.hero-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(17, 116, 214, 0.1);
+}
+
+.meta-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.meta-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+/* CTA Button */
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(17, 116, 214, 0.25);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(17, 116, 214, 0.35);
+}
+
+/* ======================================================
+   CONTENT BODY - Clean grid layout
+   ====================================================== */
+.project-detail-body {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+}
+
+/* Intro section */
+.project-detail-intro {
+  margin-bottom: 3rem;
+}
+
+.project-detail-intro > div:first-child {
+  margin-bottom: 1.5rem;
+}
+
+.project-detail-intro p {
+  font-size: 1.125rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-width: 800px;
+}
+
+.project-detail-pill-group {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.detail-pill {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid rgba(17, 116, 214, 0.2);
+}
+
+/* Two-column grid for Location & Amenities */
+.project-detail-section-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+@media (max-width: 768px) {
+  .project-detail-section-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* Section styling */
+.project-detail-section {
+  background: #fff;
+  border-radius: var(--radius-md);
+  padding: 1.75rem;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-detail-section:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.project-detail-section h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--primary-light);
+}
+
+/* Location advantages list */
+.detail-bullet-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.detail-bullet-list li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-muted);
+}
+
+.detail-bullet-list li:before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--primary);
+  font-weight: bold;
+}
+
+/* Amenities chips */
+.detail-chip-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.detail-chip {
+  background: rgba(17, 116, 214, 0.08);
+  color: var(--primary-dark);
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px solid rgba(17, 116, 214, 0.15);
+  transition: all 0.2s ease;
+}
+
+.detail-chip:hover {
+  background: rgba(17, 116, 214, 0.15);
+  transform: translateY(-1px);
+}
+
+/* Configuration cards */
+.detail-config-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.config-card {
+  background: #fff;
+  border: 1px solid rgba(17, 116, 214, 0.1);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  transition: all 0.2s ease;
+}
+
+.config-card:hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.config-card h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+  margin-bottom: 0.5rem;
+}
+
+.config-card p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Pricing table */
+.detail-pricing-table-wrapper {
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  margin-top: 1rem;
+  background: #fff;
+}
+
+.detail-pricing-table {
+  width: 100%;
+  min-width: 800px;
+  border-collapse: collapse;
+}
+
+.detail-pricing-table thead {
+  background: var(--primary-light);
+}
+
+.detail-pricing-table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-dark);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid var(--primary);
+}
+
+.detail-pricing-table td {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(17, 116, 214, 0.1);
+  color: var(--text-muted);
+}
+
+.detail-pricing-table tbody tr:hover {
+  background: rgba(17, 116, 214, 0.03);
+}
+
+/* Placeholder text */
+.project-detail-muted {
+  color: #94a3b8;
+  font-style: italic;
+  padding: 1.5rem 0;
+  text-align: center;
+  border: 2px dashed #e2e8f0;
+  border-radius: var(--radius-md);
+  background: #f8fafc;
+}
+
+/* ======================================================
+   BOTTOM CTA SECTION
+   ====================================================== */
+.project-detail-cta-card {
+  background: linear-gradient(135deg, var(--primary-light), #ffffff);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-md);
+}
+
+@media (min-width: 768px) {
+  .project-detail-cta-card {
+    flex-direction: row;
+    text-align: left;
+    justify-content: space-between;
+  }
+}
+
+.project-detail-cta-card h3 {
+  font-size: 1.5rem;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.project-detail-cta-card p {
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  max-width: 500px;
+}
+
+@media (min-width: 768px) {
+  .project-detail-cta-card p {
+    margin-bottom: 0;
+  }
+}
+
+.tf-btn.primary {
+  background: var(--primary);
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.tf-btn.primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(17, 116, 214, 0.25);
+}
+
+/* ======================================================
+   RESPONSIVE ADJUSTMENTS
+   ====================================================== */
+@media (max-width: 768px) {
+  .project-hero {
+    height: 50vh;
+    min-height: 350px;
+  }
+  
+  .project-hero-card {
+    padding: 1.5rem;
+    margin: 0 1rem;
+  }
+  
+  .hero-title {
+    font-size: 1.75rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+  
+  .hero-meta {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .project-detail-body {
+    padding: 0 1rem;
+  }
+  
+  .detail-config-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .project-hero {
+    height: 45vh;
+    min-height: 300px;
+  }
+  
+  .hero-title {
+    font-size: 1.5rem;
+  }
+  
+  .project-hero-card {
+    padding: 1.25rem;
+  }
+  
+  .project-detail-section {
+    padding: 1.25rem;
+  }
+  
+  .detail-pricing-table-wrapper {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+}

@@ -1,0 +1,131 @@
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { LogIn, Loader2, Eye, EyeOff } from 'lucide-react';
+import { signInAgent } from '../Firebase/agentHelpers';
+import './AgentPanel.css';
+
+const AgentLogin = () => {
+  const navigate = useNavigate();
+  const [loginId, setLoginId] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+
+    try {
+      await signInAgent(loginId, password);
+      navigate('/agent/dashboard');
+    } catch (err) {
+      const message =
+        err.code === 'auth/invalid-credential' || err.code === 'auth/wrong-password'
+          ? 'Invalid login ID or password.'
+          : err.code === 'auth/user-not-found'
+            ? 'No account found with this login ID.'
+            : err.message || 'Login failed. Please try again.';
+      setError(message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="agent-portal-wrapper align-items-center justify-content-center px-4">
+      <div className="w-100" style={{ maxWidth: '420px' }}>
+        <div className="text-center mb-5">
+          <img
+            src="/img/logo.jpeg"
+            alt="Logo"
+            className="mb-4"
+            style={{ height: '80px', width: 'auto', borderRadius: '15px' }}
+          />
+          <div className="mb-2">
+            <span className="badge rounded-pill px-3 py-2" style={{ background: 'rgba(17, 116, 214, 0.1)', color: '#1174d6', fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.1em' }}>
+              SECURE AGENT PORTAL
+            </span>
+          </div>
+          <h1 className="fw-800 mb-2" style={{ color: '#0A2540', fontSize: '1.75rem' }}>Login to Dashboard</h1>
+          <p className="text-muted small">Access your partner portal and personalized tools</p>
+        </div>
+
+        <div className="agent-card p-4 p-md-5">
+          <form onSubmit={handleSubmit}>
+            {error && (
+              <div className="alert alert-danger border-0 small mb-4" style={{ background: '#fff5f5', color: '#c53030' }}>
+                {error}
+              </div>
+            )}
+
+            <div className="mb-4">
+              <label className="small fw-700 text-muted mb-2 d-block text-uppercase" style={{ fontSize: '0.65rem', letterSpacing: '0.05em' }}>
+                Agent Login ID
+              </label>
+              <input
+                type="email"
+                className="agent-input"
+                placeholder="registered@email.com"
+                value={loginId}
+                onChange={(e) => setLoginId(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="mb-4">
+              <label className="small fw-700 text-muted mb-2 d-block text-uppercase" style={{ fontSize: '0.65rem', letterSpacing: '0.05em' }}>
+                Your Password
+              </label>
+              <div className="position-relative">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  className="agent-input pe-5"
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="btn border-0 position-absolute end-0 top-50 translate-middle-y text-muted px-3"
+                >
+                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                </button>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="btn w-100 py-3 fw-bold shadow-lg d-flex align-items-center justify-content-center gap-2"
+              style={{ background: '#1174d6', color: 'white', borderRadius: '12px' }}
+            >
+              {loading ? (
+                <>
+                  <Loader2 size={18} className="animate-spin" />
+                  <span>Verifying Credentials...</span>
+                </>
+              ) : (
+                <>
+                  <LogIn size={18} />
+                  <span>Access Portal</span>
+                </>
+              )}
+            </button>
+          </form>
+        </div>
+
+        <p className="text-center text-muted mt-4" style={{ fontSize: '0.75rem' }}>
+          Credentials were sent via email after your HR approval.
+          <br />
+          <Link to="/" className="text-decoration-none mt-3 d-inline-block fw-600 text-primary">← Back to main website</Link>
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default AgentLogin;

@@ -1,0 +1,143 @@
+/* Premium Corporate & Luxury Variable Theme matching JoinAsPartner */
+:root {
+  --primary-brand: #0A2540;
+  --accent-blue: #1174d6;
+  --neutral-soft: #f8fafc;
+  --border-color: #e2e8f0;
+  --text-dark: #334155;
+  --text-muted: #64748b;
+  --radius-lg: 24px;
+  --radius-sm: 12px;
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.premium-page-wrapper {
+  background-color: var(--neutral-soft);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Helper Utilities */
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Luxury Editorial Card Treatment */
+.premium-thankyou-card.card {
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  border-radius: var(--radius-lg);
+  padding: 3rem 2.5rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.03), 0 10px 10px -5px rgba(0, 0, 0, 0.01);
+  transition: var(--transition-smooth);
+}
+
+.premium-thankyou-card.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.06);
+}
+
+/* Elegant Animation Keyframes for Checkmark */
+.success-icon-wrapper {
+  background: rgba(17, 116, 214, 0.05);
+  padding: 1rem;
+  border-radius: 50%;
+  display: inline-flex;
+}
+
+.success-checkmark-icon {
+  color: var(--accent-blue);
+  animation: premiumScaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes premiumScaleIn {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Core Typography styles */
+.premium-main-heading {
+  color: var(--primary-brand);
+  font-weight: 800;
+  font-size: 2.25rem;
+  letter-spacing: -0.02em;
+}
+
+.premium-message-text {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* High-End Informational Feedback Box */
+.premium-credentials-box {
+  background-color: rgba(17, 116, 214, 0.03);
+  border: 1px solid rgba(17, 116, 214, 0.12);
+  border-radius: var(--radius-sm);
+  padding: 1.25rem;
+}
+
+.premium-box-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--primary-brand);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.premium-box-desc {
+  font-size: 0.875rem;
+  color: var(--text-dark);
+  line-height: 1.5;
+}
+
+.text-danger-soft {
+  color: #dc3545 !important;
+}
+
+.premium-box-footer {
+  font-size: 0.725rem;
+  color: #94a3b8;
+  border-top: 1px dashed var(--border-color);
+  padding-top: 0.75rem;
+}
+
+/* Balanced Interactive Navigation Buttons */
+.premium-primary-action {
+  background-color: var(--accent-blue);
+  color: #ffffff !important;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  border: none;
+  transition: var(--transition-smooth);
+}
+
+.premium-primary-action:hover {
+  background-color: #0d5fb3;
+  box-shadow: 0 4px 12px rgba(17, 116, 214, 0.2);
+}
+
+.premium-secondary-action {
+  background-color: #ffffff;
+  color: var(--text-dark) !important;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  transition: var(--transition-smooth);
+}
+
+.premium-secondary-action:hover {
+  background-color: var(--neutral-soft);
+  border-color: #cbd5e1;
+}

@@ -1,0 +1,204 @@
+/* ═══════════════════════════════════════════════════════════════
+   AGENT PANEL — PREMIUM MODERN THEME
+   Bootstrap + Custom CSS
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  --agent-bg: #f5f8ff;
+  --agent-surface: #ffffff;
+  --agent-accent: #1174d6;
+  --agent-accent-dark: #0d5fb3;
+  --agent-text: #0A2540;
+  --agent-text-muted: #64748b;
+  --agent-border: #e1e8f0;
+  --agent-sidebar-w: 280px;
+  --agent-radius: 16px;
+  --agent-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+}
+
+.agent-portal-wrapper {
+  background: var(--agent-bg);
+  min-height: 100vh;
+  display: flex;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* Sidebar */
+.agent-sidebar {
+  width: var(--agent-sidebar-w);
+  background: white;
+  border-right: 1px solid var(--agent-border);
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+.agent-sidebar-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.agent-sidebar-nav {
+  flex: 1;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.agent-nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1.25rem;
+  border-radius: 14px;
+  color: var(--agent-text-muted);
+  text-decoration: none !important;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+  border: none;
+  background: transparent;
+  width: 100%;
+}
+
+.agent-nav-item:hover:not(:disabled) {
+  background: #f8fafc;
+  color: var(--agent-text);
+}
+
+.agent-nav-item.active {
+  background: var(--agent-accent);
+  color: white;
+  box-shadow: 0 8px 20px rgba(17, 116, 214, 0.2);
+}
+
+.agent-nav-item:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Header */
+.agent-header {
+  height: 72px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--agent-border);
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 900;
+}
+
+/* Cards & Components */
+.agent-card {
+  background: white;
+  border-radius: 20px;
+  border: 1px solid var(--agent-border);
+  box-shadow: var(--agent-shadow);
+  padding: 1.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.agent-hero-card {
+  background: linear-gradient(135deg, #0A2540 0%, #1174d6 100%);
+  border-radius: 24px;
+  padding: 2.5rem;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-pill {
+  background: white;
+  padding: 1.25rem;
+  border-radius: 18px;
+  border: 1px solid var(--agent-border);
+  box-shadow: var(--agent-shadow);
+  height: 100%;
+}
+
+.onboarding-step {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 14px;
+  border: 1px solid #f1f5f9;
+  background: #fbfcfe;
+}
+
+.onboarding-step.done {
+  background: #ecfdf5;
+  border-color: #d1fae5;
+}
+
+.onboarding-step.pending {
+  background: #fffbeb;
+  border-color: #fef3c7;
+}
+
+/* Digital Card */
+.digital-id-card {
+  background: linear-gradient(135deg, #0A2540 0%, #1174d6 100%);
+  border-radius: 20px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(10, 37, 64, 0.3);
+}
+
+.id-photo {
+  width: 80px;
+  height: 100px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.2);
+}
+
+/* Forms */
+.agent-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--agent-border);
+  background: #f8fafc;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.agent-input:focus {
+  outline: none;
+  border-color: var(--agent-accent);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(17, 116, 214, 0.05);
+}
+
+/* Utility */
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 991px) {
+  .agent-sidebar {
+    display: none;
+  }
+}
