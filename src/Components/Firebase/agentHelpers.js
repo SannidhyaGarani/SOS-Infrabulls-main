@@ -6,8 +6,8 @@ import {
   reauthenticateWithCredential,
   EmailAuthProvider,
 } from 'firebase/auth';
-import { doc, setDoc, getDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
-import { auth, db } from './Firebase';
+import { doc, setDoc, getDoc, getDocs, collection, query, updateDoc, serverTimestamp } from 'firebase/firestore';
+import { auth, db, secondaryAuth } from './Firebase';
 
 export const generateAgentPassword = () =>
   String(Math.floor(10000000 + Math.random() * 90000000));
@@ -22,14 +22,25 @@ export const createAgentAccount = async ({
   partnerRequestId,
 }) => {
   const normalizedEmail = email.trim().toLowerCase();
+  
+  // Generate Unique Agent ID
+  const agentsSnap = await getDocs(collection(db, 'agents'));
+  const agentCount = agentsSnap.size;
+  const agentId = `sosagent${agentCount + 1}`;
+  
+  // Generate Unique 6-digit Referral Code
+  const ownReferralCode = Math.floor(100000 + Math.random() * 900000).toString();
+
+  // Use secondaryAuth to create user without signing out the main admin
   const credential = await createUserWithEmailAndPassword(
-    auth,
+    secondaryAuth,
     normalizedEmail,
     password
   );
   const { uid } = credential.user;
 
-  await signOut(auth);
+  // Sign out from secondary app immediately
+  await signOut(secondaryAuth);
 
   const fullName = [formData.firstName, formData.middleName, formData.lastName]
     .filter(Boolean)
@@ -37,6 +48,8 @@ export const createAgentAccount = async ({
 
   const agentData = {
     uid,
+    agentId,
+    ownReferralCode,
     loginId: normalizedEmail,
     email: normalizedEmail,
     password,
@@ -54,7 +67,7 @@ export const createAgentAccount = async ({
 
   await setDoc(doc(db, 'agents', uid), agentData);
 
-  return { uid, loginId: normalizedEmail, password, agentData };
+  return { uid, agentId, ownReferralCode, loginId: normalizedEmail, password, agentData };
 };
 
 export const signInAgent = async (loginId, password) => {

@@ -20,11 +20,11 @@ const JoinAsPartner = () => {
     fatherHusbandMiddleName: '',
     fatherHusbandLastName: '',
     dob: '',
-    localAddressLine2: '',
+    localAddressLine: '',
     localCity: '',
     localState: '',
     localPinCode: '',
-    permanentAddressLine1: '',
+    permanentAddressLine: '',
     permanentCity: '',
     permanentState: '',
     permanentPinCode: '',
@@ -33,6 +33,11 @@ const JoinAsPartner = () => {
     mobile2: '',
     panCardNo: '',
     aadhaarCardNo: '',
+    reference: '',
+    department: '',
+    leaderName: '',
+    planBy: '',
+    referralCode: '',
   });
 
   const [files, setFiles] = useState({ photograph: null, panCard: null, aadhaarCard: null });
@@ -59,8 +64,8 @@ const JoinAsPartner = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.firstName || !formData.mobile1) {
-      alert("First Name and Mobile Number are required.");
+    if (!formData.firstName || !formData.mobile1 || !formData.referralCode) {
+      alert("First Name, Mobile Number, and Referral Code are required.");
       return;
     }
     setLoading(true);
@@ -110,7 +115,7 @@ const JoinAsPartner = () => {
 
       setUploadProgress(97);
 
-      const { uid } = await createAgentAccount({
+      const { uid, agentId, ownReferralCode } = await createAgentAccount({
         email: loginId,
         password,
         formData,
@@ -120,7 +125,7 @@ const JoinAsPartner = () => {
         partnerRequestId: partnerRef.id,
       });
 
-      await updateDoc(partnerRef, { agentUid: uid });
+      await updateDoc(partnerRef, { agentUid: uid, agentId, ownReferralCode });
       setUploadProgress(99);
 
       const fullName = [formData.firstName, formData.middleName, formData.lastName].filter(Boolean).join(' ');
@@ -137,15 +142,16 @@ const JoinAsPartner = () => {
       setFormData({
         date: '', firstName: '', middleName: '', lastName: '',
         fatherHusbandName: '', fatherHusbandMiddleName: '', fatherHusbandLastName: '',
-        dob: '', localAddressLine2: '', localCity: '', localState: '', localPinCode: '',
-        permanentAddressLine1: '', permanentCity: '', permanentState: '', permanentPinCode: '',
+        dob: '', localAddressLine: '', localCity: '', localState: '', localPinCode: '',
+        permanentAddressLine: '', permanentCity: '', permanentState: '', permanentPinCode: '',
         email: '', mobile1: '', mobile2: '', panCardNo: '', aadhaarCardNo: '',
+        reference: '', department: '', leaderName: '', planBy: '', referralCode: '',
       });
       setFiles({ photograph: null, panCard: null, aadhaarCard: null });
       setPreviews({ photograph: null, panCard: null, aadhaarCard: null });
 
       setTimeout(() => navigate('/thank-you', {
-        state: { loginId, emailSent: emailResult.success },
+        state: { loginId, emailSent: emailResult.success, agentId, ownReferralCode },
       }), 500);
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -194,10 +200,10 @@ const JoinAsPartner = () => {
                       <input type="date" className="form-control" name="date" value={formData.date} onChange={handleChange} />
                     </div>
                     <div className="col-md-6">
-                      <label className="form-label">Your Photograph</label>
+                      <label className="form-label">Your Photograph <span className="text-danger">*</span></label>
                       <input type="file" id="photo" name="photograph" accept="image/*" onChange={handleFileChange} className="d-none" />
                       <label htmlFor="photo" className="form-control d-flex align-items-center justify-content-between" style={{ cursor: 'pointer' }}>
-                        <span>{previews.photograph ? 'Photo Selected ✓' : 'Upload Photograph'}</span>
+                        <span>{previews.photograph ? 'Photo Selected ✓' : 'Upload Photograph *'}</span>
                         <Camera size={18} />
                       </label>
                     </div>
@@ -213,23 +219,23 @@ const JoinAsPartner = () => {
                   <div className="row g-3">
                     <div className="col-md-4">
                       <label className="form-label">First Name <span className="text-danger">*</span></label>
-                      <input type="text" className="form-control" placeholder="John" name="firstName" value={formData.firstName} onChange={handleChange} required />
+                      <input type="text" className="form-control" placeholder="First Name" name="firstName" value={formData.firstName} onChange={handleChange} required />
                     </div>
                     <div className="col-md-4">
                       <label className="form-label">Middle Name</label>
-                      <input type="text" className="form-control" placeholder="M." name="middleName" value={formData.middleName} onChange={handleChange} />
+                      <input type="text" className="form-control" placeholder="Middle Name" name="middleName" value={formData.middleName} onChange={handleChange} />
                     </div>
                     <div className="col-md-4">
                       <label className="form-label">Last Name</label>
-                      <input type="text" className="form-control" placeholder="Doe" name="lastName" value={formData.lastName} onChange={handleChange} />
+                      <input type="text" className="form-control" placeholder="Last Name" name="lastName" value={formData.lastName} onChange={handleChange} />
                     </div>
                   </div>
 
-                  <div className="mt-4 pt-4 border-top">
-                    <p className="fs-6 text-muted mb-3">Relative Details</p>
+                  <div className="mt-4">
+                    <label className="form-label text-muted d-block mb-2">Father / Husband Details</label>
                     <div className="row g-3">
                       <div className="col-md-4">
-                        <input type="text" className="form-control" placeholder="Father/Husband First Name" name="fatherHusbandName" value={formData.fatherHusbandName} onChange={handleChange} />
+                        <input type="text" className="form-control" placeholder="First Name" name="fatherHusbandName" value={formData.fatherHusbandName} onChange={handleChange} />
                       </div>
                       <div className="col-md-4">
                         <input type="text" className="form-control" placeholder="Middle Name" name="fatherHusbandMiddleName" value={formData.fatherHusbandMiddleName} onChange={handleChange} />
@@ -241,48 +247,62 @@ const JoinAsPartner = () => {
                   </div>
                 </div>
 
-                {/* Identity Proofs */}
+                {/* Personal Details */}
                 <div className="mb-5">
                   <h4 className="card-title mb-4">
                     <User size={20} className="me-2" />
-                    Identity Proofs
+                    Personal Details
                   </h4>
-                  <div className="row g-3 align-items-end">
+                  <div className="row g-3">
                     <div className="col-md-4">
                       <label className="form-label">Date of Birth</label>
                       <input type="date" className="form-control" name="dob" value={formData.dob} onChange={handleChange} />
                     </div>
                     <div className="col-md-4">
-                      <label className="form-label">PAN Card Number</label>
-                      <input type="text" className="form-control" placeholder="ABCDE1234F" name="panCardNo" value={formData.panCardNo} onChange={handleChange} />
-                    </div>
-                    <div className="col-md-4">
-                      <label className="form-label">PAN Card Image</label>
+                      <label className="form-label">PAN Card Image <span className="text-danger">*</span></label>
                       <input type="file" id="pan-file" name="panCard" accept="image/*" onChange={handleFileChange} className="d-none" />
                       <label htmlFor="pan-file" className="form-control d-flex align-items-center justify-content-between" style={{ cursor: 'pointer' }}>
-                        <span>{previews.panCard ? 'PAN Selected ✓' : 'Upload PAN'}</span>
+                        <span>{previews.panCard ? 'PAN Selected ✓' : 'Upload PAN *'}</span>
                         <Upload size={18} />
                       </label>
                     </div>
-                  </div>
-
-                  <div className="row g-3 align-items-end mt-3">
-                    <div className="col-md-8">
-                      <label className="form-label">Aadhaar Card Number</label>
-                      <input type="text" className="form-control" placeholder="XXXX XXXX XXXX" name="aadhaarCardNo" value={formData.aadhaarCardNo} onChange={handleChange} />
-                    </div>
                     <div className="col-md-4">
-                      <label className="form-label">Aadhaar Image</label>
+                      <label className="form-label">Aadhaar Card Image <span className="text-danger">*</span></label>
                       <input type="file" id="aadhaar-file" name="aadhaarCard" accept="image/*" onChange={handleFileChange} className="d-none" />
                       <label htmlFor="aadhaar-file" className="form-control d-flex align-items-center justify-content-between" style={{ cursor: 'pointer' }}>
-                        <span>{previews.aadhaarCard ? 'Aadhaar Selected ✓' : 'Upload Aadhaar'}</span>
+                        <span>{previews.aadhaarCard ? 'Aadhaar Selected ✓' : 'Upload Aadhaar *'}</span>
                         <Upload size={18} />
                       </label>
                     </div>
                   </div>
                 </div>
 
-                {/* Addresses */}
+                {/* Professional Details */}
+                <div className="mb-5">
+                  <h4 className="card-title mb-4">
+                    <Briefcase size={20} className="me-2" />
+                    Professional Details
+                  </h4>
+                  <div className="row g-3">
+                    <div className="col-md-6">
+                      <input type="text" className="form-control" placeholder="Reference" name="reference" value={formData.reference} onChange={handleChange} />
+                    </div>
+                    <div className="col-md-6">
+                      <input type="text" className="form-control" placeholder="Department" name="department" value={formData.department} onChange={handleChange} />
+                    </div>
+                    <div className="col-md-6">
+                      <input type="text" className="form-control" placeholder="Leader Name" name="leaderName" value={formData.leaderName} onChange={handleChange} />
+                    </div>
+                    <div className="col-md-6">
+                      <input type="text" className="form-control" placeholder="Plan By" name="planBy" value={formData.planBy} onChange={handleChange} />
+                    </div>
+                    <div className="col-md-12">
+                      <label className="form-label">Referral Code <span className="text-danger">*</span></label>
+                      <input type="text" className="form-control" placeholder="Enter Referral Code" name="referralCode" value={formData.referralCode} onChange={handleChange} required />
+                    </div>
+                  </div>
+                </div>
+
                 <div className="row g-4 mb-5">
                   <div className="col-lg-6">
                     <div className="contact-card h-100" style={{ padding: '1.5rem' }}>
@@ -291,16 +311,18 @@ const JoinAsPartner = () => {
                         Local Address
                       </h5>
                       <div className="d-flex flex-column gap-3">
-                        <input type="text" className="form-control" placeholder="Full Address Line" name="localAddressLine2" value={formData.localAddressLine2} onChange={handleChange} />
+                        <input type="text" className="form-control" placeholder="Address Line" name="localAddressLine" value={formData.localAddressLine} onChange={handleChange} />
                         <div className="row g-2">
-                          <div className="col-6">
+                          <div className="col-4">
                             <input type="text" className="form-control" placeholder="City" name="localCity" value={formData.localCity} onChange={handleChange} />
                           </div>
-                          <div className="col-6">
+                          <div className="col-4">
                             <input type="text" className="form-control" placeholder="State" name="localState" value={formData.localState} onChange={handleChange} />
                           </div>
+                          <div className="col-4">
+                            <input type="text" className="form-control" placeholder="Pin Code" name="localPinCode" value={formData.localPinCode} onChange={handleChange} />
+                          </div>
                         </div>
-                        <input type="text" className="form-control" placeholder="Pin Code" name="localPinCode" value={formData.localPinCode} onChange={handleChange} />
                       </div>
                     </div>
                   </div>
@@ -312,22 +334,23 @@ const JoinAsPartner = () => {
                         Permanent Address
                       </h5>
                       <div className="d-flex flex-column gap-3">
-                        <input type="text" className="form-control" placeholder="Full Address Line" name="permanentAddressLine1" value={formData.permanentAddressLine1} onChange={handleChange} />
+                        <input type="text" className="form-control" placeholder="Address Line" name="permanentAddressLine" value={formData.permanentAddressLine} onChange={handleChange} />
                         <div className="row g-2">
-                          <div className="col-6">
+                          <div className="col-4">
                             <input type="text" className="form-control" placeholder="City" name="permanentCity" value={formData.permanentCity} onChange={handleChange} />
                           </div>
-                          <div className="col-6">
+                          <div className="col-4">
                             <input type="text" className="form-control" placeholder="State" name="permanentState" value={formData.permanentState} onChange={handleChange} />
                           </div>
+                          <div className="col-4">
+                            <input type="text" className="form-control" placeholder="Pin Code" name="permanentPinCode" value={formData.permanentPinCode} onChange={handleChange} />
+                          </div>
                         </div>
-                        <input type="text" className="form-control" placeholder="Pin Code" name="permanentPinCode" value={formData.permanentPinCode} onChange={handleChange} />
                       </div>
                     </div>
                   </div>
                 </div>
 
-                {/* Contact Details */}
                 <div className="mb-5">
                   <h4 className="card-title mb-4">
                     <Phone size={20} className="me-2" />
@@ -335,16 +358,13 @@ const JoinAsPartner = () => {
                   </h4>
                   <div className="row g-3">
                     <div className="col-md-4">
-                      <label className="form-label">Email Address</label>
-                      <input type="email" className="form-control" placeholder="john@example.com" name="email" value={formData.email} onChange={handleChange} />
+                      <input type="email" className="form-control" placeholder="Email ID" name="email" value={formData.email} onChange={handleChange} />
                     </div>
                     <div className="col-md-4">
-                      <label className="form-label">Mobile Number <span className="text-danger">*</span></label>
-                      <input type="tel" className="form-control" placeholder="9876543210" name="mobile1" value={formData.mobile1} onChange={handleChange} required />
+                      <input type="tel" className="form-control" placeholder="Mobile 1" name="mobile1" value={formData.mobile1} onChange={handleChange} required />
                     </div>
                     <div className="col-md-4">
-                      <label className="form-label">Alternative Mobile</label>
-                      <input type="tel" className="form-control" placeholder="9000000000" name="mobile2" value={formData.mobile2} onChange={handleChange} />
+                      <input type="tel" className="form-control" placeholder="Mobile 2" name="mobile2" value={formData.mobile2} onChange={handleChange} />
                     </div>
                   </div>
                 </div>

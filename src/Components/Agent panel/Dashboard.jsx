@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard, User, Shield, IdCard, LogOut, Menu, X, Settings,
   CheckCircle, Clock, Loader2, Lock, ExternalLink, Mail, Phone, MapPin, Calendar,
-  KeyRound, Eye, EyeOff, AlertCircle, ChevronRight
+  KeyRound, Eye, EyeOff, AlertCircle, ChevronRight, Users
 } from 'lucide-react';
 import { onAuthStateChanged } from 'firebase/auth';
-import { doc, onSnapshot } from 'firebase/firestore';
+import { doc, onSnapshot, collection, query, where, getDocs } from 'firebase/firestore';
 import { auth, db } from '../Firebase';
 import { signOutAgent, setAgentPasswordOnce } from '../Firebase/agentHelpers';
 import S3Image from '../S3Image';
@@ -18,6 +18,8 @@ const mapAgentInfo = (agent) => {
   return {
     name: agent.fullName || [agent.firstName, agent.middleName, agent.lastName].filter(Boolean).join(' '),
     id: agent.loginId || agent.email,
+    agentId: agent.agentId || 'Pending',
+    ownReferralCode: agent.ownReferralCode || 'Pending',
     email: agent.email,
     mobile: agent.mobile1,
     status: agent.status || 'Pending',
@@ -26,7 +28,7 @@ const mapAgentInfo = (agent) => {
     panCardNo: agent.panCardNo || '—',
     aadhaarCardNo: agent.aadhaarCardNo || '—',
     profileCompletion: Math.round((docsUploaded / 3) * 100),
-    address: agent.localAddressLine2 || agent.permanentAddressLine1 || '—',
+    address: agent.localAddressLine || agent.permanentAddressLine1 || '—',
     city: agent.localCity || agent.permanentCity || '—',
     state: agent.localState || agent.permanentState || '—',
     pincode: agent.localPinCode || agent.permanentPinCode || '—',
@@ -52,9 +54,32 @@ const AgentDashboard = () => {
   const [pwLoading, setPwLoading] = useState(false);
   const [pwError, setPwError] = useState('');
   const [pwSuccess, setPwSuccess] = useState(false);
+  const [team, setTeam] = useState([]);
+  const [teamLoading, setTeamLoading] = useState(false);
 
   const isApproved = agentInfo?.status === 'Approved';
   const hasSetPassword = agentInfo?.passwordChanged;
+
+  const fetchTeam = async () => {
+    if (!agentInfo?.ownReferralCode || agentInfo.ownReferralCode === 'Pending') return;
+    setTeamLoading(true);
+    try {
+      const q = query(collection(db, 'agents'), where('referralCode', '==', agentInfo.ownReferralCode));
+      const snap = await getDocs(q);
+      const members = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setTeam(members);
+    } catch (err) {
+      console.error('Failed to fetch team:', err);
+    } finally {
+      setTeamLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (activeTab === 'team') {
+      fetchTeam();
+    }
+  }, [activeTab, agentInfo?.ownReferralCode]);
 
   useEffect(() => {
     let unsubDoc = null;
@@ -124,6 +149,7 @@ const AgentDashboard = () => {
 
   const navigationItems = [
     { id: 'dashboard', name: 'Dashboard overview', icon: LayoutDashboard, requiresApproval: false },
+    { id: 'team', name: 'My team network', icon: Users, requiresApproval: true },
     { id: 'profile', name: 'Identity profile', icon: User, requiresApproval: true },
     { id: 'kyc', name: 'KYC documents', icon: Shield, requiresApproval: true },
     { id: 'digital-card', name: 'Digital ID card', icon: IdCard, requiresApproval: true },
@@ -233,8 +259,17 @@ const AgentDashboard = () => {
                  <div className="row align-items-center">
                    <div className="col-lg-8">
                      <span className="badge px-3 py-2 bg-white bg-opacity-10 mb-3" style={{ fontSize: '0.65rem', fontWeight: 800 }}>DASHBOARD OVERVIEW</span>
-                     <h2 className="fw-800 mb-2">Success, <span className="fw-light">{agentInfo.name.split(' ')[0]}</span></h2>
-                     <p className="text-white text-opacity-75 small m-0 font-monospace">{agentInfo.id}</p>
+                     <h2 className="fw-800 mb-2 text-light">Success, <span className="fw-light">{agentInfo.name.split(' ')[0]}</span></h2>
+                     <div className="d-flex flex-wrap gap-3 mt-3">
+                        <div className="bg-white bg-opacity-10 px-3 py-2 rounded-3 border border-white border-opacity-10">
+                          <label className="d-block text-white text-opacity-50 fw-800 uppercase" style={{ fontSize: '0.5rem' }}>Agent Identity</label>
+                          <span className="text-white fw-bold font-monospace small">{agentInfo.agentId}</span>
+                        </div>
+                        <div className="bg-white bg-opacity-10 px-3 py-2 rounded-3 border border-white border-opacity-10">
+                          <label className="d-block text-white text-opacity-50 fw-800 uppercase" style={{ fontSize: '0.5rem' }}>Referral Code</label>
+                          <span className="text-white fw-bold font-monospace small">{agentInfo.ownReferralCode}</span>
+                        </div>
+                      </div>
                    </div>
                    <div className="col-lg-4 d-none d-lg-block text-end">
                       <Shield size={80} className="text-white opacity-10" />
@@ -387,7 +422,7 @@ const AgentDashboard = () => {
                     <span className="badge bg-success small" style={{ fontSize: '0.5rem' }}>ACTIVE</span>
                  </div>
                  
-                 <div className="d-flex gap-4 align-items-center">
+                  <div className="d-flex gap-4 align-items-center">
                     <div className="rounded-4 overflow-hidden border border-white border-opacity-20 shadow-lg" style={{ width: '80px', height: '100px' }}>
                       <S3Image src={agentInfo.photographUrl} className="w-100 h-100 object-cover" />
                     </div>
@@ -395,10 +430,18 @@ const AgentDashboard = () => {
                        <label className="text-blue-100 opacity-50 uppercase fw-800 d-block mb-1" style={{ fontSize: '0.5rem' }}>Agent Identity</label>
                        <h5 className="fw-800 mb-3 truncate">{agentInfo.name}</h5>
                        
-                       <label className="text-blue-100 opacity-50 uppercase fw-800 d-block mb-1" style={{ fontSize: '0.5rem' }}>Login Identifier</label>
-                       <span className="bg-white bg-opacity-10 px-2 py-1 rounded small fw-600 font-monospace" style={{ fontSize: '0.65rem' }}>{agentInfo.id}</span>
+                       <div className="row g-2">
+                          <div className="col-6">
+                            <label className="text-blue-100 opacity-50 uppercase fw-800 d-block mb-1" style={{ fontSize: '0.5rem' }}>Agent ID</label>
+                            <span className="bg-white bg-opacity-10 px-2 py-1 rounded d-block text-center fw-600 font-monospace" style={{ fontSize: '0.65rem' }}>{agentInfo.agentId}</span>
+                          </div>
+                          <div className="col-6">
+                            <label className="text-blue-100 opacity-50 uppercase fw-800 d-block mb-1" style={{ fontSize: '0.5rem' }}>Referral Code</label>
+                            <span className="bg-white bg-opacity-10 px-2 py-1 rounded d-block text-center fw-600 font-monospace" style={{ fontSize: '0.65rem' }}>{agentInfo.ownReferralCode}</span>
+                          </div>
+                        </div>
                     </div>
-                 </div>
+                  </div>
 
                  <div className="mt-4 pt-3 border-top border-white border-opacity-10 d-flex justify-content-between text-white-50 uppercase fw-700" style={{ fontSize: '0.5rem' }}>
                     <span>Joined: {agentInfo.joiningDate}</span>
@@ -406,6 +449,74 @@ const AgentDashboard = () => {
                  </div>
               </div>
               <p className="mt-4 text-muted small">This digital card is automatically generated and verified by the HR office.</p>
+            </div>
+          )}
+
+          {activeTab === 'team' && isApproved && (
+            <div className="agent-card">
+              <div className="d-flex justify-content-between align-items-center mb-4">
+                <h6 className="fw-800 m-0">My Direct Referrals</h6>
+                <span className="badge bg-primary-subtle text-primary fw-800 px-3">{team.length} Member{team.length !== 1 ? 's' : ''}</span>
+              </div>
+
+              {teamLoading ? (
+                <div className="py-5 text-center">
+                  <Loader2 className="animate-spin text-primary" size={32} />
+                </div>
+              ) : team.length === 0 ? (
+                <div className="text-center py-5 border-dashed rounded-4">
+                  <Users size={48} className="text-muted opacity-25 mb-3" />
+                  <h6 className="text-muted fw-700">No team members yet</h6>
+                  <p className="text-muted small mx-auto" style={{ maxWidth: '300px' }}>
+                    Share your referral code <strong className="text-primary">{agentInfo.ownReferralCode}</strong> with others to build your network.
+                  </p>
+                </div>
+              ) : (
+                <div className="table-responsive">
+                  <table className="table table-borderless align-middle m-0">
+                    <thead>
+                      <tr className="border-bottom">
+                        <th className="text-muted small fw-800 uppercase pb-3" style={{ fontSize: '0.6rem' }}>Member Identity</th>
+                        <th className="text-muted small fw-800 uppercase pb-3" style={{ fontSize: '0.6rem' }}>Agent ID</th>
+                        <th className="text-muted small fw-800 uppercase pb-3" style={{ fontSize: '0.6rem' }}>Contact</th>
+                        <th className="text-muted small fw-800 uppercase pb-3" style={{ fontSize: '0.6rem' }}>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {team.map((member) => (
+                        <tr key={member.id}>
+                          <td className="py-3">
+                            <div className="d-flex align-items-center gap-3">
+                              <div className="rounded-circle bg-light border overflow-hidden" style={{ width: '36px', height: '36px' }}>
+                                {member.photographUrl ? (
+                                  <S3Image src={member.photographUrl} className="w-100 h-100 object-cover" />
+                                ) : (
+                                  <div className="w-100 h-100 d-flex align-items-center justify-content-center text-primary fw-bold small">
+                                    {member.fullName?.charAt(0)}
+                                  </div>
+                                )}
+                              </div>
+                              <div>
+                                <span className="fw-800 small d-block">{member.fullName}</span>
+                                <span className="text-muted" style={{ fontSize: '0.65rem' }}>{member.email}</span>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="py-3">
+                            <span className="badge bg-light text-dark font-monospace small px-2 py-1 border">{member.agentId}</span>
+                          </td>
+                          <td className="py-3 fw-600 small">{member.mobile1}</td>
+                          <td className="py-3">
+                            <span className={`badge rounded-pill px-2 py-1 ${member.status === 'Approved' ? 'bg-success-subtle text-success' : 'bg-warning-subtle text-warning'}`} style={{ fontSize: '0.6rem' }}>
+                              {member.status}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </div>
           )}
 

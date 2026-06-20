@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import {
   LayoutDashboard, Users, UserCheck, LogOut, Search, Menu, X,
   Eye, CheckCircle2, XCircle, Clock, Loader2, RefreshCw, ExternalLink,
-  ChevronRight, Mail, Phone, Calendar
+  ChevronRight, Mail, Phone, Calendar, UserPlus
 } from 'lucide-react';
 import {
   fetchAllAgents,
@@ -15,6 +15,7 @@ import {
 import S3Image from '../S3Image';
 import { getImageViewUrl } from '../Firebase/s3UploadService';
 import { signOutAdmin } from '../Firebase/authHelpers';
+import AddAgent from './AddAgent';
 import './HRPanel.css';
 
 const HRDashboard = () => {
@@ -102,6 +103,7 @@ const HRDashboard = () => {
     { id: 'dashboard', name: 'Dashboard', icon: LayoutDashboard },
     { id: 'registrations', name: 'Registrations', icon: UserCheck },
     { id: 'approved', name: 'Approved Agents', icon: Users },
+    { id: 'add-agent', name: 'Add Agent', icon: UserPlus },
   ];
 
   const currentList =
@@ -152,8 +154,10 @@ const HRDashboard = () => {
           <div className="hr-page-title">
             <h1>{activeTab === 'dashboard' ? 'HR Dashboard' : 
                  activeTab === 'registrations' ? 'Partner Registrations' :
-                 activeTab === 'approved' ? 'Approved Partners' : 'Applicant Details'}</h1>
-            <p>{activeTab === 'details' ? 'Detailed view of partner application' : 'Manage partner onboarding & approvals'}</p>
+                 activeTab === 'approved' ? 'Approved Partners' : 
+                 activeTab === 'add-agent' ? 'Add New Agent' : 'Applicant Details'}</h1>
+            <p>{activeTab === 'details' ? 'Detailed view of partner application' : 
+                activeTab === 'add-agent' ? 'Manually register a new partner node' : 'Manage partner onboarding & approvals'}</p>
           </div>
           <button className="hr-refresh-btn" onClick={loadAgents} disabled={loading}>
             <RefreshCw size={18} className={loading ? 'animate-spin' : ''} />
@@ -227,7 +231,11 @@ const HRDashboard = () => {
                       <div className="hr-row" key={agent.id}>
                         <div className="hr-applicant-info">
                           <h4>{formatAgentName(agent)}</h4>
-                          <p>{agent.email}</p>
+                          <div className="d-flex gap-2 align-items-center">
+                            <p className="m-0 text-primary small fw-bold">{agent.agentId || 'No ID'}</p>
+                            <span className="text-muted small">•</span>
+                            <p className="m-0">{agent.email}</p>
+                          </div>
                         </div>
                         <div className="hr-contact-info">{agent.mobile1}</div>
                         <div className="hr-date-info">{formatDate(agent.createdAt)}</div>
@@ -254,6 +262,12 @@ const HRDashboard = () => {
                     ))
                   )}
                 </div>
+              </div>
+            )}
+
+            {activeTab === 'add-agent' && (
+              <div className="hr-add-agent-container">
+                <AddAgent onAgentAdded={loadAgents} />
               </div>
             )}
 
@@ -285,7 +299,15 @@ const HRDashboard = () => {
 
                 <div className="hr-details-grid">
                   <div className="hr-details-sec">
-                    <h3>Personal Information</h3>
+                    <h3>Personal & Agent Information</h3>
+                    <div className="hr-info-item">
+                       <label>Agent ID</label>
+                       <span className="text-primary fw-bold">{selectedAgent.agentId || 'Pending'}</span>
+                    </div>
+                    <div className="hr-info-item">
+                       <label>Own Referral Code</label>
+                       <span className="fw-bold">{selectedAgent.ownReferralCode || 'Pending'}</span>
+                    </div>
                     <div className="hr-info-item">
                        <label>Full Name</label>
                        <span>{formatAgentName(selectedAgent)}</span>
@@ -304,12 +326,36 @@ const HRDashboard = () => {
                     </div>
                     <div className="hr-info-item">
                        <label>Local Address</label>
-                       <span className="text-end" style={{ maxWidth: '200px' }}>{selectedAgent.localAddress || '—'}</span>
+                       <span className="text-end" style={{ maxWidth: '200px' }}>
+                         {selectedAgent.localAddressLine ? `${selectedAgent.localAddressLine}, ${selectedAgent.localCity}, ${selectedAgent.localState} - ${selectedAgent.localPinCode}` : '—'}
+                       </span>
                     </div>
                   </div>
 
                   <div className="hr-details-sec">
-                    <h3>Onboarding Documents</h3>
+                    <h3>Professional & Referral</h3>
+                    <div className="hr-info-item">
+                       <label>Referral Code Used</label>
+                       <span className="text-success fw-bold">{selectedAgent.referralCode || '—'}</span>
+                    </div>
+                    <div className="hr-info-item">
+                       <label>Reference</label>
+                       <span>{selectedAgent.reference || '—'}</span>
+                    </div>
+                    <div className="hr-info-item">
+                       <label>Department</label>
+                       <span>{selectedAgent.department || '—'}</span>
+                    </div>
+                    <div className="hr-info-item">
+                       <label>Leader Name</label>
+                       <span>{selectedAgent.leaderName || '—'}</span>
+                    </div>
+                    <div className="hr-info-item">
+                       <label>Plan By</label>
+                       <span>{selectedAgent.planBy || '—'}</span>
+                    </div>
+
+                    <h3 className="mt-4">Onboarding Documents</h3>
                     <div className="hr-info-item">
                        <label>PAN Card Number</label>
                        <span>{selectedAgent.panCardNo || '—'}</span>
