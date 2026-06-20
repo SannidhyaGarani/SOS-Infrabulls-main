@@ -6,7 +6,7 @@ export const uploadMediaToCloudinary = async (file, onProgress) => {
   data.append('upload_preset', 'Mahanta_group');
 
   const response = await axios.post(
-    'https://api.cloudinary.com/v1_1/dlsbj8nug/image/upload',
+    'https://api.cloudinary.com/v1_1/dlsbj8nug/auto/upload',
     data,
     {
       onUploadProgress: (event) => {

@@ -40,6 +40,7 @@ const defaultForm = {
   pricingPlotSizeInput: '',
   description: '',
   size: '',
+  brochure: '',
 };
 
 const buildPricingPayload = (form) => {
@@ -93,6 +94,7 @@ export const projectToForm = (project) => ({
     : '',
   description: project.description || '',
   size: project.size || '',
+  brochure: project.brochure || '',
 });
 
 const ProjectModal = ({ open, onClose, editingProject, onSuccess }) => {
@@ -103,6 +105,8 @@ const ProjectModal = ({ open, onClose, editingProject, onSuccess }) => {
   const [logoFile, setLogoFile] = useState(null);
   const [imagePreview, setImagePreview] = useState('');
   const [logoPreview, setLogoPreview] = useState('');
+  const [brochureFile, setBrochureFile] = useState(null);
+  const [brochureName, setBrochureName] = useState('');
 
   React.useEffect(() => {
     if (open && editingProject) {
@@ -111,12 +115,16 @@ const ProjectModal = ({ open, onClose, editingProject, onSuccess }) => {
       setLogoPreview(editingProject.logo || '');
       setImageFile(null);
       setLogoFile(null);
+      setBrochureFile(null);
+      setBrochureName(editingProject.brochure ? 'Current Brochure PDF' : '');
     } else if (open) {
       setForm(defaultForm);
       setImagePreview('');
       setLogoPreview('');
       setImageFile(null);
       setLogoFile(null);
+      setBrochureFile(null);
+      setBrochureName('');
     }
   }, [open, editingProject]);
 
@@ -136,8 +144,10 @@ const ProjectModal = ({ open, onClose, editingProject, onSuccess }) => {
       setSaving(true);
       let imageUrl = null;
       let logoUrl = null;
+      let brochureUrl = null;
       if (imageFile) imageUrl = await uploadMediaToCloudinary(imageFile, setProgress);
       if (logoFile) logoUrl = await uploadMediaToCloudinary(logoFile);
+      if (brochureFile) brochureUrl = await uploadMediaToCloudinary(brochureFile, setProgress);
 
       const locationPayload = { summary: form.location };
       if (form.locationAddress) locationPayload.address = form.locationAddress;
@@ -164,6 +174,7 @@ const ProjectModal = ({ open, onClose, editingProject, onSuccess }) => {
 
       if (imageUrl) payload.image = imageUrl;
       if (logoUrl) payload.logo = logoUrl;
+      if (brochureUrl) payload.brochure = brochureUrl;
       if (amenities.length) payload.amenities = amenities;
       if (Object.keys(configurations).length) payload.configurations = configurations;
       if (pricing) payload.pricing = pricing;
@@ -252,6 +263,17 @@ const ProjectModal = ({ open, onClose, editingProject, onSuccess }) => {
             }} className={inputClass} />
           </FormField>
         </div>
+
+        <FormField label="Project Brochure (PDF)" hint="Used for download option on project page">
+          <input type="file" accept="application/pdf" onChange={(e) => {
+            const f = e.target.files?.[0];
+            if (f) { setBrochureFile(f); setBrochureName(f.name); }
+          }} className={inputClass} />
+          {brochureName && <div className="text-sm text-green-600 mt-1 flex items-center gap-1">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            Selected: {brochureName}
+          </div>}
+        </FormField>
 
         {(imagePreview || logoPreview) && (
           <div className="flex gap-4">

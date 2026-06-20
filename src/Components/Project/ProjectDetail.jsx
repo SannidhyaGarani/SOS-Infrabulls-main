@@ -2,6 +2,19 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../Firebase/Firebase";
+import { 
+    FaArrowLeft, 
+    FaMapMarkerAlt, 
+    FaFilePdf, 
+    FaDownload, 
+    FaBuilding, 
+    FaThLarge, 
+    FaLocationArrow, 
+    FaCheckCircle, 
+    FaStar, 
+    FaPhoneAlt, 
+    FaArrowRight 
+} from "react-icons/fa";
 import "./ProjectDetail.css";
 
 const formatLocationSummary = (location) => {
@@ -72,185 +85,225 @@ const ProjectDetail = () => {
     }
 
     return (
-        <div className="project-detail-page py-5 mb-5">
+        <div className="project-detail-page mb-5">
+            {/* HERO SECTION */}
             <section
-                className="project-hero d-flex align-items-end "
+                className="project-hero-new"
                 style={{
-                    backgroundImage: `url(${project.image || 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900"><rect width="100%" height="100%" fill="%23ffffff"/><rect x="1" y="1" width="1598" height="898" fill="none" stroke="%23000" stroke-width="2"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="32" fill="%23000">No Image Available</text></svg>'})`
+                    backgroundImage: `linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.7)), url(${project.image || 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&q=80'})`
                 }}
             >
-                <div className="project-hero-overlay"></div>
+                <div className="container h-100 position-relative d-flex flex-column justify-content-end pb-5">
+                    <div className="hero-top-badges">
+                        <Link to="/projectgallery" className="hero-back-btn">
+                            <FaArrowLeft className="me-2" /> Back to Projects
+                        </Link>
+                        <span className={`hero-status-pill ${project.status === "completed" ? "completed" : "running"}`}>
+                            {project.status === "completed" ? "Completed" : "Running"}
+                        </span>
+                    </div>
 
-                <div className="container project-hero-content">
+                    <div className="hero-main-content">
+                        <h1 className="hero-title-new">{project.title}</h1>
+                        <p className="hero-desc-new">
+                            <FaMapMarkerAlt className="me-2 text-warning" />
+                            {project.tagline || formatLocationSummary(project.location)}
+                        </p>
+
+                        {project.brochure && (
+                            <div className="hero-action-box animated-fade-in">
+                                <a
+                                    href={project.brochure}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    download
+                                    className="brochure-download-btn-premium"
+                                >
+                                    <div className="btn-icon">
+                                        <FaFilePdf />
+                                    </div>
+                                    <div className="btn-text">
+                                        <span>Official Project Brochure</span>
+                                        <strong>DOWNLOAD PDF <FaDownload className="ms-1" /></strong>
+                                    </div>
+                                </a>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </section>
 
-            <div className="project-hero-card">
-                <div className="d-flex justify-content-between align-items-center mb-3">
-                    <Link to="/projectgallery" className="back-btn">
-                        ← Back to Projects
-                    </Link>
-
-                    <span
-                        className={`status-badge ${project.status === "completed" ? "completed" : "running"
-                            }`}
-                    >
-                        {project.status === "completed" ? "Completed" : "Running"}
-                    </span>
-                </div>
-
-                <h1 className="hero-title">{project.title}</h1>
-                <p className="hero-subtitle">
-                    {project.tagline || formatLocationSummary(project.location)}
-                </p>
-
-                <div className="row mt-4">
-                    <div className="col-md-4 col-6">
-                        <div className="py-2 px-3 m-1 card">
-                            <span className="meta-label">Developer</span>
-                            <div className="meta-value">{project.developer || "SOS Infrabulls"}</div>
+            {/* INFO CARDS ROW */}
+            <div className="container info-cards-container">
+                <div className="row g-4">
+                    <div className="col-lg-4 col-md-6">
+                        <div className="info-card-modern">
+                            <div className="info-icon-box blue">
+                                <FaBuilding />
+                            </div>
+                            <div className="info-content">
+                                <span className="info-label">DEVELOPER</span>
+                                <span className="info-value">{project.developer || "SOS Infrabulls"}</span>
+                            </div>
                         </div>
                     </div>
-                    <div className="col-md-4 col-6">
-                        <div className="py-2 px-3 m-1 card">
-                            <span className="meta-label">Layout</span>
-                            <div className="meta-value">{project.project_layout || "Coming soon"}</div>
+                    <div className="col-lg-4 col-md-6">
+                        <div className="info-card-modern">
+                            <div className="info-icon-box light-blue">
+                                <FaThLarge />
+                            </div>
+                            <div className="info-content">
+                                <span className="info-label">LAYOUT</span>
+                                <span className="info-value">{project.project_layout || "—"}</span>
+                            </div>
                         </div>
                     </div>
-                    <div className="col-md-4 col-12 mt-md-0 mt-3">
-                        <div className="py-2 px-3 m-1 card">
-                            <span className="meta-label">Location</span>
-                            <div className="meta-value">
-                                {project.location?.address || formatLocationSummary(project.location)}
+                    <div className="col-lg-4 col-12">
+                        <div className="info-card-modern">
+                            <div className="info-icon-box orange">
+                                <FaLocationArrow />
+                            </div>
+                            <div className="info-content">
+                                <span className="info-label">LOCATION</span>
+                                <span className="info-value">
+                                    {project.location?.address || formatLocationSummary(project.location)}
+                                </span>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                {project.ctaUrl && (
-                    <a
-                        href={project.ctaUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="btn btn-primary mt-4 px-4 py-2"
-                    >
-                        {project.ctaLabel || "Visit Project Site"}
-                    </a>
-                )}
             </div>
 
-            <section className="project-detail-body container">
-                <div className="project-detail-intro">
-                    <div>
-                        <p>
-                            {project.location?.summary ||
-                                formatLocationSummary(project.location) ||
-                                "Detailed description will be published soon."}
-                        </p>
-                    </div>
-                    <div className="project-detail-pill-group">
-                        <span className="detail-pill">{project.project_name || project.title}</span>
-                        <span className="detail-pill">
-                            {project.status === "completed" ? "Delivered milestone" : "Actively selling"}
-                        </span>
-                        {project.developer && <span className="detail-pill">By {project.developer}</span>}
-                    </div>
-                </div>
-
-                <div className="project-detail-section-grid">
-                    <div className="project-detail-section">
-                        <h2>Location Advantage</h2>
-                        {advantages.length ? (
-                            <ul className="detail-bullet-list">
-                                {advantages.map((item) => (
-                                    <li key={item}>{item}</li>
-                                ))}
-                            </ul>
-                        ) : (
-                            <p className="project-detail-muted">Proximity highlights will be updated shortly.</p>
-                        )}
-                    </div>
-
-                    <div className="project-detail-section">
-                        <h2>Amenities</h2>
-                        {amenities.length ? (
-                            <div className="detail-chip-grid">
-                                {amenities.map((amenity) => (
-                                    <span key={amenity} className="detail-chip">
-                                        {amenity}
-                                    </span>
-                                ))}
+            {/* MAIN CONTENT BODY */}
+            <main className="container project-content-main mt-5">
+                <div className="row gx-lg-5">
+                    <div className="col-lg-7">
+                        <section className="detail-section-modern">
+                            <h2 className="section-title-bar">Project Overview</h2>
+                            <p className="overview-text">
+                                {project.location?.summary ||
+                                    formatLocationSummary(project.location) ||
+                                    "Detailed description will be published soon."}
+                            </p>
+                            <div className="overview-pills mt-3">
+                                <span className="status-pill-small">{project.project_name || project.title}</span>
+                                <span className="status-pill-small">
+                                    {project.status === "completed" ? "Delivered milestone" : "Actively selling"}
+                                </span>
                             </div>
-                        ) : (
-                            <p className="project-detail-muted">Amenity mix will be announced soon.</p>
-                        )}
-                    </div>
-                </div>
+                        </section>
 
-                <div className="project-detail-section">
-                    <h2>Configurations</h2>
-                    {configurationEntries.length ? (
-                        <div className="detail-config-grid">
-                            {configurationEntries.map(([type, config]) => (
-                                <div key={type} className="config-card">
-                                    <h3>{type}</h3>
-                                    <p>{safeArray(config?.sizes_sqft).join(", ")} sq.ft</p>
-                                </div>
-                            ))}
-                        </div>
-                    ) : (
-                        <p className="project-detail-muted">Configuration matrix is being curated.</p>
-                    )}
-                </div>
-
-                <div className="project-detail-section">
-                    <h2>Pricing Snapshot</h2>
-                    {pricingTypes.length ? (
-                        <div className="detail-pricing-table-wrapper">
-                            <table className="detail-pricing-table">
-                                <thead>
-                                    <tr>
-                                        <th>Typology</th>
-                                        <th>Rate / Sq.ft</th>
-                                        <th>Electricity</th>
-                                        <th>Maintenance</th>
-                                        <th>Prime Charges</th>
-                                        <th>Plot Sizes (Sq.ft)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {pricingTypes.map((type) => (
-                                        <tr key={type}>
-                                            <td>{type}</td>
-                                            <td>{pricing.rate_per_sqft?.[type] ?? "—"}</td>
-                                            <td>{pricing.electricity_charge?.[type] ?? "—"}</td>
-                                            <td>{pricing.maintenance?.[type] ?? "—"}</td>
-                                            <td>{pricing.prime_location_charges?.[type] ?? "—"}</td>
-                                            <td>
-                                                {Array.isArray(pricing.plot_size_sqft?.[type])
-                                                    ? pricing.plot_size_sqft[type].join(", ")
-                                                    : pricing.plot_size_sqft?.[type] || "—"}
-                                            </td>
-                                        </tr>
+                        <section className="detail-section-modern mt-5">
+                            <h2 className="section-title-bar">Location Advantage</h2>
+                            {advantages.length ? (
+                                <ul className="advantage-list-modern">
+                                    {advantages.map((item) => (
+                                        <li key={item}>
+                                            <FaCheckCircle className="text-primary me-2" />
+                                            {item}
+                                        </li>
                                     ))}
-                                </tbody>
-                            </table>
+                                </ul>
+                            ) : (
+                                <p className="text-muted italic">Proximity highlights will be updated shortly.</p>
+                            )}
+                        </section>
+                    </div>
+
+                    <div className="col-lg-5">
+                        <section className="detail-section-modern">
+                            <h2 className="section-title-bar">Amenities</h2>
+                            {amenities.length ? (
+                                <div className="amenities-grid-modern">
+                                    {amenities.map((amenity) => (
+                                        <div key={amenity} className="box-amenity">
+                                            <FaStar className="star-icon" />
+                                            {amenity}
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <p className="text-muted italic">Amenity mix will be announced soon.</p>
+                            )}
+                        </section>
+                    </div>
+                </div>
+
+                {/* CONFIGURATIONS & PRICING */}
+                <div className="row mt-5">
+                    <div className="col-12">
+                        <section className="detail-section-modern">
+                            <h2 className="section-title-bar">Configurations & Typologies</h2>
+                            {configurationEntries.length ? (
+                                <div className="config-grid-modern">
+                                    {configurationEntries.map(([type, config]) => (
+                                        <div key={type} className="modern-config-card">
+                                            <h3>{type}</h3>
+                                            <div className="config-divider"></div>
+                                            <p>{safeArray(config?.sizes_sqft).join(", ")} sq.ft</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <p className="text-muted italic">Configuration matrix is being curated.</p>
+                            )}
+                        </section>
+                    </div>
+
+                    {pricingTypes.length > 0 && (
+                        <div className="col-12 mt-5">
+                            <section className="detail-section-modern">
+                                <h2 className="section-title-bar">Pricing Snapshot</h2>
+                                <div className="modern-table-wrapper">
+                                    <table className="modern-pricing-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Typology</th>
+                                                <th>Rate / Sq.ft</th>
+                                                <th>Electricity</th>
+                                                <th>Maintenance</th>
+                                                <th>Prime Charges</th>
+                                                <th>Plot Sizes (Sq.ft)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {pricingTypes.map((type) => (
+                                                <tr key={type}>
+                                                    <td><strong>{type}</strong></td>
+                                                    <td>{pricing.rate_per_sqft?.[type] ?? "—"}</td>
+                                                    <td>{pricing.electricity_charge?.[type] ?? "—"}</td>
+                                                    <td>{pricing.maintenance?.[type] ?? "—"}</td>
+                                                    <td>{pricing.prime_location_charges?.[type] ?? "—"}</td>
+                                                    <td>
+                                                        {Array.isArray(pricing.plot_size_sqft?.[type])
+                                                            ? pricing.plot_size_sqft[type].join(", ")
+                                                            : pricing.plot_size_sqft?.[type] || "—"}
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </section>
                         </div>
-                    ) : (
-                        <p className="project-detail-muted">Pricing grid will be uploaded soon.</p>
                     )}
                 </div>
 
-                <div className="project-detail-cta-card">
-                    <div>
-                        <h3>Need a guided walkthrough?</h3>
-                        <p>Connect with our advisory desk to receive brochures, payment plans, and site visit slots.</p>
+                {/* BOTTOM CTA CARD */}
+                <div className="modern-cta-box-wrapper mt-5">
+                    <div className="modern-cta-box">
+                        <div className="cta-content">
+                            <h3>Need a guided walkthrough?</h3>
+                            <p>Connect with our advisory desk to receive brochures, payment plans, and site visit slots.</p>
+                        </div>
+                        <Link to="/contact" className="modern-gradient-btn">
+                            <FaPhoneAlt className="me-2" />
+                            TALK TO US
+                            <FaArrowRight className="ms-3 arrow-icon" />
+                        </Link>
                     </div>
-                    <Link to="/contact" className="tf-btn primary">
-                        Talk to us →
-                    </Link>
                 </div>
-            </section>
+            </main>
         </div>
     );
 };
