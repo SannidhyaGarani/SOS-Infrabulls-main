@@ -169,7 +169,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h6>Phone</h6>
-                  <p>0731-4909915</p>
+                  <p>62629-00000</p>
                 </div>
               </div>
 
@@ -179,13 +179,14 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h6>Email</h6>
-                  <p>info@sosinfrabulls.org.in</p>
+                  <p>info@sosinfrabulls.com</p>
                 </div>
               </div>
 
               <div className="social-links mt-4">
-                <a href="https://www.facebook.com/profile.php?id=61581331928145" aria-label="Facebook"><i className="bi bi-facebook"></i></a>
-                <a href="https://www.instagram.com/sosinfrabulls/" aria-label="Instagram"><i className="bi bi-instagram"></i></a>
+                <a href="https://www.facebook.com/sosinfrabulls/" aria-label="Facebook"><i className="bi bi-facebook"></i></a>
+                <a href="https://www.instagram.com/official_sosinfrabulls/" aria-label="Instagram"><i className="bi bi-instagram"></i></a>
+                <a href="https://www.youtube.com/@SOS_Infrabulls" aria-label="YouTube"><i className="bi bi-youtube"></i></a>
                 <a href="https://www.linkedin.com/company/sos-infrabulls/" aria-label="LinkedIn"><i className="bi bi-linkedin"></i></a>
               </div>
             </div>

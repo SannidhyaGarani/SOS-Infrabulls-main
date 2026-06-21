@@ -9,22 +9,22 @@ const HeroPremium = () => {
 
     const slides = [
         {
-            image: "images/home/1.jpg",
+            image: "https://res.cloudinary.com/dlsbj8nug/image/upload/v1782036214/1_kcqtxc.jpg",
             title: "Luxury Living Awaits",
             subtitle: "Discover premium properties tailored to your dreams"
         },
         {
-            image: "images/home/2.jpg",
+            image: "https://res.cloudinary.com/dlsbj8nug/image/upload/v1782036210/2_pvdgzb.jpg",
             title: "Your Dream Home",
             subtitle: "Exceptional residences in prime locations"
         },
         {
-            image: "images/home/3.jpg",
+            image: "https://res.cloudinary.com/dlsbj8nug/image/upload/v1782036217/3_xuvjci.jpg",
             title: "Premium Real Estate",
             subtitle: "Where quality meets sophistication"
         },
         {
-            image: "images/home/5.jpg",
+            image: "https://res.cloudinary.com/dlsbj8nug/image/upload/v1782036200/5_j0h4n4.jpg",
             title: "Elite Properties",
             subtitle: "Curated excellence in every detail"
         }

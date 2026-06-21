@@ -156,7 +156,7 @@ function Welcome() {
                         <div className="image-frame">
                             <img
                                 ref={imageRef}
-                                src="images/img/img/8.JPG"
+                                src="https://res.cloudinary.com/dlsbj8nug/image/upload/v1782036901/5th_anniversary_pic-compressed_dttg4k.jpg"
                                 alt="SOS Infrabulls"
                                 className="welcome-image"
                                 loading="lazy"

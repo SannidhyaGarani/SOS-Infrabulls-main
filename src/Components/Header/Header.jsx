@@ -524,9 +524,9 @@ const PremiumHeader = () => {
                             <span className="contact-icon">📞</span>
                             <div>
                                 <div className="contact-label">Call Us</div>
-                                <a href="tel:+917314909915" className="contact-value">
-                                    +91 73149 09915
-                                </a>
+                                <a href="tel:+916262900000" className="contact-value">
+                                    +91 62629-00000
+                                 </a>
 
                             </div>
                         </div>

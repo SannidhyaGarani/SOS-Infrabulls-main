@@ -93,8 +93,8 @@ const Terms = () => {
             <p>
               For any questions regarding these terms, please contact us through
               the official mail at
-              <a className="terms__link" href="mailto:info@sosinfrabulls.org.in">
-                {' '}info@sosinfrabulls.org.in
+              <a className="terms__link" href="mailto:info@sosinfrabulls.com">
+                {' '}info@sosinfrabulls.com
               </a>.
             </p>
           </article>
