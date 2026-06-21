@@ -113,9 +113,22 @@ const HRDashboard = () => {
 
   return (
     <div className="hr-panel-wrapper">
-      {/* Sidebar */}
+      {/* Mobile Top Bar */}
+      <div className="hr-mobile-top-bar d-lg-none">
+        <img src="/images/logo/logo@2x.png" alt="SOS Infrabulls" className="hr-mobile-logo" />
+        <div className="hr-mobile-actions">
+           <button className="hr-refresh-btn small" onClick={loadAgents} disabled={loading}>
+             <RefreshCw size={16} className={loading ? 'animate-spin' : ''} />
+           </button>
+           <button className="hr-mobile-menu-toggle" onClick={() => setSidebarOpen(!sidebarOpen)}>
+             {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
+           </button>
+        </div>
+      </div>
+
+      {/* Sidebar - Now a Drawer on Mobile */}
       <aside className={`hr-sidebar ${sidebarOpen ? 'mobile-open' : ''}`}>
-        <div className="hr-sidebar-brand">
+        <div className="hr-sidebar-brand d-none d-lg-flex">
           <div className="d-flex flex-column align-items-center gap-3">
             <img src="/images/logo/logo@2x.png" alt="SOS Infrabulls" className="hr-sidebar-logo" />
             <div className="text-center">
@@ -125,6 +138,9 @@ const HRDashboard = () => {
         </div>
 
         <div className="hr-nav-section">
+          <div className="d-lg-none p-3 border-bottom mb-3">
+            <h6 className="text-muted small fw-bold text-uppercase mb-0">Management Menu</h6>
+          </div>
           {menuItems.map((item) => (
             <button
               key={item.id}
@@ -149,10 +165,24 @@ const HRDashboard = () => {
         </div>
       </aside>
 
+      {/* Mobile Bottom Nav */}
+      <nav className="hr-mobile-bottom-nav d-lg-none">
+        {menuItems.map((item) => (
+          <button
+            key={item.id}
+            onClick={() => navigateTo(item.id)}
+            className={`hr-m-nav-item ${activeTab === item.id || (activeTab === 'details' && item.id === 'registrations') ? 'active' : ''}`}
+          >
+            <item.icon size={20} />
+            <span>{item.name}</span>
+          </button>
+        ))}
+      </nav>
+
       {/* Main Content */}
       <main className="hr-main">
         {/* Header Row */}
-        <div className="hr-header-row">
+        <div className="hr-header-row d-none d-lg-flex">
           <div className="hr-page-title">
             <h1>{activeTab === 'dashboard' ? 'HR Dashboard' : 
                  activeTab === 'registrations' ? 'Partner Registrations' :
@@ -164,6 +194,16 @@ const HRDashboard = () => {
           <button className="hr-refresh-btn" onClick={loadAgents} disabled={loading}>
             <RefreshCw size={18} className={loading ? 'animate-spin' : ''} />
           </button>
+        </div>
+
+        {/* Mobile Page Indicator */}
+        <div className="hr-mobile-header d-lg-none mb-4">
+           <h2 className="m-0 fw-800 fs-4">
+             {activeTab === 'dashboard' ? 'HR Dashboard' : 
+              activeTab === 'registrations' ? 'Registrations' :
+              activeTab === 'approved' ? 'Active Partners' : 
+              activeTab === 'add-agent' ? 'Add Agent' : 'Partner Details'}
+           </h2>
         </div>
 
         {activeTab !== 'details' && (

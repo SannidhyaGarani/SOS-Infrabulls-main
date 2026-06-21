@@ -757,32 +757,246 @@
 }
 
 /* ── Responsive ────────────────────────────────────────────── */
-@media (max-width: 1200px) {
-  .hr-main {
-    padding: 1.75rem 1.5rem;
-  }
-}
-
+/* ── Mobile Base ───────────────────────────────────────────── */
 @media (max-width: 991.98px) {
+  .hr-panel-wrapper {
+    flex-direction: column;
+    padding-bottom: 70px; /* Room for bottom nav */
+  }
+
   .hr-sidebar {
     position: fixed;
     left: 0;
     top: 0;
     transform: translateX(-100%);
     box-shadow: 8px 0 40px rgba(0, 0, 0, 0.12);
-    z-index: 9998;
+    z-index: 10001; /* Above mobile top bar */
+    height: 100vh;
   }
+
   .hr-sidebar.mobile-open {
     transform: translateX(0);
   }
+
   .hr-main {
-    padding: 1.25rem;
+    padding: 1.5rem 1rem;
+    padding-top: 80px; /* Space for top bar */
   }
+
+  .hr-mobile-top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--hr-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.25rem;
+    z-index: 10000;
+    box-shadow: var(--hr-shadow-sm);
+  }
+
+  .hr-mobile-logo {
+    height: 48px;
+    object-fit: contain;
+  }
+
+  .hr-mobile-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hr-mobile-menu-toggle {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: var(--hr-accent-light);
+    color: var(--hr-accent);
+    border-radius: 10px;
+  }
+
+  .hr-mobile-bottom-nav {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    height: 64px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    z-index: 10000;
+    padding: 0 0.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+  }
+
+  .hr-m-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    border: none;
+    background: none;
+    color: var(--hr-text-muted);
+    font-size: 0.65rem;
+    font-weight: 700;
+    transition: var(--hr-transition);
+    position: relative;
+  }
+
+  .hr-m-nav-item.active {
+    color: var(--hr-accent);
+  }
+
+  .hr-m-nav-item.active::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    background: var(--hr-accent-light);
+    border-radius: 12px;
+    z-index: -1;
+  }
+
+  .hr-m-nav-item span {
+    max-width: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Stat Card Tuning */
+  .hr-stats-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .hr-stat-card {
+    padding: 1rem 1.25rem;
+  }
+  
+  .hr-stat-card h3 {
+    font-size: 1.5rem;
+  }
+
+  /* Table to Cards */
+  .hr-table-cols {
+    display: none;
+  }
+
+  .hr-row {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding: 1.25rem;
+    border-bottom: 2px solid var(--hr-border);
+    position: relative;
+  }
+
+  .hr-applicant-info h4 {
+    font-size: 1rem;
+  }
+
+  .hr-row::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--hr-accent);
+    opacity: 0;
+  }
+
+  .hr-row:hover::before {
+    opacity: 1;
+  }
+
+  .hr-contact-info, .hr-date-info {
+    font-size: 0.75rem;
+  }
+
+  .hr-action-btns {
+    margin-top: 1rem;
+    justify-content: flex-start;
+  }
+
+  .btn-hr-view {
+    flex: 1;
+    justify-content: center;
+    padding: 0.6rem;
+  }
+  
+  .btn-hr-unapprove {
+    flex: 1;
+    text-align: center;
+  }
+
+  /* Details Card */
   .hr-details-hero {
     flex-direction: column;
     text-align: center;
-    padding: 1.75rem;
-    gap: 1.25rem;
+    padding: 1.5rem;
+    gap: 1rem;
+  }
+
+  .hr-details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hr-details-sec {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .hr-details-sec:first-child {
+    border-right: none;
+    border-bottom: 1px solid var(--hr-border);
+  }
+
+  .hr-info-item {
+    padding: 0.85rem 0;
+  }
+
+  .hr-info-item label {
+    font-size: 0.7rem;
+  }
+
+  .hr-info-item span {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hr-mobile-logo {
+    height: 40px;
+  }
+  
+  .hr-m-nav-item span {
+    display: none;
+  }
+  
+  .hr-mobile-bottom-nav {
+    height: 60px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .hr-main {
+    padding: 1.75rem 1.5rem;
   }
 }
 
@@ -817,5 +1031,10 @@
   .hr-stats-row {
     grid-template-columns: 1fr;
     gap: 0.75rem;
+  }
+}@media (max-width: 991.98px) {
+  .hr-add-agent-container .contact-card, .contact-card {
+    padding: 1.5rem 1.25rem;
+    border-radius: 20px;
   }
 }

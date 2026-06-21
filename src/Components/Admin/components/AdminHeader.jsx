@@ -19,7 +19,7 @@ const AdminHeader = ({ sectionId }) => {
           </p>
         )}
       </div>
-      <div className="live-badge d-none d-sm-flex">
+      <div className="live-badge d-none d-md-flex">
         <span className="sync-dot" />
         <span>Live sync</span>
       </div>

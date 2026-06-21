@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import AdminSidebar from './components/AdminSidebar';
 import AdminHeader from './components/AdminHeader';
+import MobileAdminNav from './components/MobileAdminNav';
 import Dashboard from './sections/Dashboard';
 import ProjectsSection from './sections/ProjectsSection';
 import BlogsSection from './sections/BlogsSection';
@@ -24,8 +25,9 @@ const AdminPanel = () => {
   const ActiveComponent = SECTION_MAP[activeSection] || Dashboard;
 
   return (
-    <div className="d-flex admin-main-content">
+    <div className="admin-main-content">
       <AdminSidebar active={activeSection} onNavigate={setActiveSection} />
+      <MobileAdminNav active={activeSection} onNavigate={setActiveSection} />
 
       <div className="admin-content-area">
         <AdminHeader sectionId={activeSection} />
