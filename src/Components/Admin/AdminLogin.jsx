@@ -28,11 +28,9 @@ const AdminLogin = () => {
     <div className="admin-main-content d-flex align-items-center justify-content-center px-3" style={{ minHeight: '100vh' }}>
       <div className="w-100" style={{ maxWidth: '400px' }}>
         <div className="text-center mb-4">
-          <div className="sidebar-brand-icon mx-auto mb-3" style={{ width: '60px', height: '60px', borderRadius: '15px' }}>
-            <span style={{ fontSize: '1.2rem' }}>SOS</span>
-          </div>
-          <h2 className="fw-bold text-dark mb-1">Administrative Login</h2>
-          <p className="small text-muted">Enter your secure credentials to proceed</p>
+          <img src="/images/logo/logo@2x.png" alt="SOS Infrabulls" className="mx-auto mb-3" style={{ height: '100px' }} />
+          <h2 className="fw-bold text-dark mb-1">Admin Portal</h2>
+          <p className="small text-muted text-center">Enter your secure credentials to proceed</p>
         </div>
 
         <div className="admin-stat-card p-4 p-md-5">

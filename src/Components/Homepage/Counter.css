@@ -1,70 +1,102 @@
-/* Import a clean, modern font */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 .pc-wrapper {
-  padding: 120px 20px;
-  background: #ffffff;
+  padding: 140px 20px;
+  background: #f8fafc;
   font-family: 'Plus Jakarta Sans', sans-serif;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* --- Premium Ambient Micro-Glow Layer --- */
+.pc-ambient-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(140px);
+  opacity: 0.45;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.pc-ambient-1 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(17, 116, 214, 0.15) 0%, transparent 70%);
+  top: -10%;
+  left: -5%;
+}
+
+.pc-ambient-2 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(255, 215, 130, 0.25) 0%, transparent 70%);
+  bottom: -10%;
+  right: -5%;
 }
 
 .pc-container {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
+/* --- Header Section --- */
 .pc-header {
   text-align: center;
-  margin-bottom: 80px;
+  margin-bottom: 90px;
 }
 
 .pc-badge {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 2px;
   color: #1174d6;
-  background: rgba(99, 102, 241, 0.08);
-  padding: 6px 14px;
-  border-radius: 50px;
+  background: #ffffff;
+  padding: 8px 18px;
+  border-radius: 100px;
+  box-shadow: 0 4px 15px rgba(17, 116, 214, 0.06);
+  border: 1px solid rgba(17, 116, 214, 0.12);
 }
 
 .pc-main-title {
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(2.25rem, 6vw, 3.5rem);
   font-weight: 800;
-  color: #1e293b;
-  margin-top: 20px;
-  line-height: 1.1;
+  color: #0f172a;
+  margin-top: 25px;
+  margin-bottom: 15px;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
 }
 
 .pc-gradient-text {
-  background:  #1174d6;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #1174d6;
 }
 
-/* Grid setup */
+.pc-subtitle {
+  font-size: 1.1rem;
+  color: #64748b;
+  max-width: 540px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* --- Premium Staggered Grid --- */
 .pc-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 30px;
 }
 
-/* THE PREMIUM CARD */
+/* --- Premium Glassmorphic Card Architecture --- */
 .pc-card {
   position: relative;
-  background: #ffffff;
-  border-radius: 32px;
-  padding: 50px 30px;
-  text-align: center; /* Centers all inline elements */
-  border: 1px solid rgba(226, 232, 240, 0.8);
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.04);
-  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 28px;
+  padding: 2px; /* Precision gap for illuminated borders */
   opacity: 0;
-  transform: translateY(40px);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Centers flex items */
+  transform: translateY(50px);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
 }
 
 .pc-card.pc-visible {
@@ -73,102 +105,172 @@
   transition-delay: var(--pc-delay);
 }
 
-.pc-card:hover {
-  transform: translateY(-12px);
-  border-color: rgba(99, 102, 241, 0.2);
-  box-shadow: 0 30px 60px -15px rgba(99, 102, 241, 0.15);
+.pc-card-inner {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 26px;
+  padding: 45px 30px 40px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 10px 40px -15px rgba(15, 23, 42, 0.05);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  z-index: 2;
 }
 
-/* ICON STYLING - CENTERED */
-.pc-icon-wrapper {
+/* --- Standard Hover Lift --- */
+.pc-card:hover {
+  transform: translateY(-10px);
+}
+
+.pc-card:hover .pc-card-inner {
+  background: #ffffff;
+  box-shadow: 0 30px 60px -20px rgba(17, 116, 214, 0.12);
+}
+
+/* --- Center Cards Multi-Highlight Effect --- */
+.pc-highlight-card {
+  overflow: hidden;
+  box-shadow: 0 15px 45px -12px rgba(17, 116, 214, 0.08);
+}
+
+.pc-highlight-card .pc-border-glow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 180deg,
+    transparent 60%,
+    rgba(17, 116, 214, 0.6) 100%
+  );
+  animation: spinRing 5s linear infinite;
+  z-index: 1;
+}
+
+@keyframes spinRing {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* --- Premium Icon Architecture --- */
+.pc-icon-container {
   position: relative;
-  margin-bottom: 30px;
+  margin-bottom: 35px;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
 .pc-icon-box {
-  width: 70px;
-  height: 70px;
-  background: #f8fafc;
-  border-radius: 24px;
+  width: 64px;
+  height: 64px;
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   color: #1174d6;
+  box-shadow: 0 8px 20px -6px rgba(15, 23, 42, 0.08);
   transition: all 0.4s ease;
   z-index: 2;
 }
 
-.pc-icon-ring {
-  position: absolute;
-  width: 85px;
-  height: 85px;
-  border: 1px dashed rgba(99, 102, 241, 0.2);
-  border-radius: 50%;
-  animation: rotateRing 10s linear infinite;
+.pc-highlight-card .pc-icon-box {
+  background: #1174d6;
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 10px 25px -5px rgba(17, 116, 214, 0.3);
 }
 
-@keyframes rotateRing {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+/* Interactive Ring Scaling */
+.pc-icon-pulse {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(17, 116, 214, 0.15);
+  border-radius: 20px;
+  z-index: 1;
+  transition: all 0.5s ease;
 }
 
 .pc-card:hover .pc-icon-box {
+  transform: scale(1.08) rotate(3deg);
   background: #1174d6;
-  color: white;
-  transform: scale(1.1);
+  color: #ffffff;
 }
 
-/* CONTENT STYLING - CENTERED */
+.pc-highlight-card:hover .pc-icon-box {
+  transform: scale(1.08) rotate(-3deg);
+  background: #0c5fae;
+}
+
+.pc-card:hover .pc-icon-pulse {
+  transform: scale(1.3);
+  opacity: 0;
+}
+
+/* --- Typography Elements --- */
 .pc-number {
-  font-size: 2.8rem;
+  font-size: 3rem;
   font-weight: 800;
   color: #0f172a;
-  margin: 0;
-  letter-spacing: -1.5px;
+  margin: 0 0 10px 0;
+  letter-spacing: -0.04em;
+  line-height: 1;
 }
 
 .pc-number span {
   color: #1174d6;
-  font-weight: 400;
-}
-
-.pc-divider {
-  width: 40px;
-  height: 4px;
-  background: linear-gradient(90deg, #1174d6, #a855f7);
-  margin: 15px auto;
-  border-radius: 10px;
-  transition: width 0.4s ease;
-}
-
-.pc-card:hover .pc-divider {
-  width: 80px;
+  margin-left: 2px;
+  font-weight: 600;
 }
 
 .pc-label {
   font-size: 0.95rem;
   font-weight: 600;
   color: #64748b;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: -0.01em;
+  margin: 0;
 }
 
-/* DECORATIVE LIGHT LEAK */
-.pc-light-leak {
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.03) 0%, transparent 70%);
-  pointer-events: none;
+/* Subtle typography highlight on card hover */
+.pc-card:hover .pc-number {
+  color: #1174d6;
 }
 
-@media (max-width: 768px) {
-  .pc-grid { grid-template-columns: 1fr; }
-  .pc-card { padding: 40px 20px; }
+/* --- Responsive Adaptations --- */
+@media (max-width: 1024px) {
+  .pc-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+  }
+  .pc-wrapper { padding: 100px 20px; }
+}
+
+@media (max-width: 640px) {
+  .pc-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  .pc-main-title { margin-top: 15px; }
+  .pc-header { margin-bottom: 60px; }
+  .pc-card-inner { padding: 40px 24px; }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .pc-card, .pc-icon-box, .pc-icon-pulse, .pc-highlight-card .pc-border-glow {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+  }
 }

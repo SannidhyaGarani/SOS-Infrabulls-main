@@ -6,13 +6,10 @@ import { ADMIN_SECTIONS } from '../config/sections';
 const AdminSidebar = ({ active, onNavigate }) => (
   <aside className="admin-sidebar d-none d-lg-flex">
     <div className="sidebar-brand">
-      <div className="d-flex align-items-center gap-3">
-        <div className="sidebar-brand-icon">
-          <span>SOS</span>
-        </div>
-        <div>
+      <div className="d-flex flex-column align-items-center gap-3">
+        <img src="/images/logo/logo@2x.png" alt="SOS Infrabulls" className="sidebar-brand-logo" />
+        <div className="text-center">
           <p className="sidebar-brand-label mb-0">Admin Panel</p>
-          <p className="sidebar-brand-sub mb-0">Content Manager</p>
         </div>
       </div>
     </div>

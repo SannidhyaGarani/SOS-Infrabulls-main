@@ -121,10 +121,10 @@ const HeroPremium = () => {
                 <div className="container">
                     <div className="hero-text-content">
                         {/* Premium Badge */}
-                        <div className="premium-badge">
+                        {/* <div className="premium-badge">
                             <span className="badge-icon">✨</span>
                             Premium Real Estate Since 2019
-                        </div>
+                        </div> */}
 
                         {/* Animated Heading */}
                         <h1 className="hero-title-premium" style={parallax.title}>

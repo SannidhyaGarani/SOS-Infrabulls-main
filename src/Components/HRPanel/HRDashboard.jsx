@@ -116,9 +116,11 @@ const HRDashboard = () => {
       {/* Sidebar */}
       <aside className={`hr-sidebar ${sidebarOpen ? 'mobile-open' : ''}`}>
         <div className="hr-sidebar-brand">
-          <div className="hr-brand-info">
-            <h1>SOS INFRABULLS</h1>
-            <p>HR PORTAL</p>
+          <div className="d-flex flex-column align-items-center gap-3">
+            <img src="/images/logo/logo@2x.png" alt="SOS Infrabulls" className="hr-sidebar-logo" />
+            <div className="text-center">
+              <p className="hr-brand-label mb-0">HR Portal</p>
+            </div>
           </div>
         </div>
 

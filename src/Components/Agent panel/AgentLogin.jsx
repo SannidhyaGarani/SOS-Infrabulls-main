@@ -38,18 +38,13 @@ const AgentLogin = () => {
       <div className="w-100" style={{ maxWidth: '420px' }}>
         <div className="text-center mb-5">
           <img
-            src="/img/logo.jpeg"
-            alt="Logo"
-            className="mb-4"
-            style={{ height: '80px', width: 'auto', borderRadius: '15px' }}
+            src="/images/logo/logo@2x.png"
+            alt="SOS Infrabulls "
+            className="mb-4 mx-auto"
+            style={{ height: '100px', width: 'auto' }}
           />
-          <div className="mb-2">
-            <span className="badge rounded-pill px-3 py-2" style={{ background: 'rgba(17, 116, 214, 0.1)', color: '#1174d6', fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.1em' }}>
-              SECURE AGENT PORTAL
-            </span>
-          </div>
-          <h1 className="fw-800 mb-2" style={{ color: '#0A2540', fontSize: '1.75rem' }}>Login to Dashboard</h1>
-          <p className="text-muted small">Access your partner portal and personalized tools</p>
+          <h1 className="fw-800 mb-2" style={{ color: '#0A2540', fontSize: '1.75rem' }}>Agent Portal</h1>
+          <p className="text-muted small text-center">Access your partner portal and personalized tools</p>
         </div>
 
         <div className="agent-card p-4 p-md-5">
