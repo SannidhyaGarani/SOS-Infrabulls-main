@@ -10,16 +10,16 @@
 
 :root {
   --primary-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-  --accent-gradient: linear-gradient(135deg, #1174d6, #0a56a5);
+  --accent-gradient: linear-gradient(135deg, #4A97E4, #0a56a5);
   --social-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-  --primary: #1174d6;
+  --primary: #4A97E4;
   --primary-dark: #0d5fb1;
   --primary-light: #e7f2ff;
   --text-dark: #0f172a;
   --text-light: #475569;
   --primary-hover: #0a4f94;
   --primary-light: #e8f2ff;
-  --accent: linear-gradient(135deg, #1174d6, #0a56a5);
+  --accent: linear-gradient(135deg, #4A97E4, #0a56a5);
   --accent-dark: #B89446;
   --light-bg: #FAFAFA;
   --border: rgba(10, 37, 64, 0.1);
@@ -38,6 +38,6 @@
   --shadow-lg: 0 15px 35px rgba(0, 0, 0, 0.1);
   --fs: clamp(26px, 10vw, 120px);
   --txt: #dff7ff;
-  --accent: #1174d6;
+  --accent: #4A97E4;
   --accent2: #78ff99;
 }

@@ -3,6 +3,7 @@ import {
   doc,
   getDocs,
   updateDoc,
+  deleteDoc,
   query,
   orderBy,
   serverTimestamp,
@@ -50,6 +51,13 @@ export const approveAgent = (agentUid, partnerRequestId) =>
 
 export const unapproveAgent = (agentUid, partnerRequestId) =>
   updateAgentStatus(agentUid, 'Pending', partnerRequestId);
+
+export const deleteAgent = async (agentUid, partnerRequestId = null) => {
+  await deleteDoc(doc(db, 'agents', agentUid));
+  if (partnerRequestId) {
+    await deleteDoc(doc(db, 'partnerRequests', partnerRequestId));
+  }
+};
 
 export const formatAgentName = (agent) =>
   agent.fullName ||

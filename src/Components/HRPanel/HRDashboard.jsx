@@ -1,14 +1,15 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import {
   LayoutDashboard, Users, UserCheck, LogOut, Search, Menu, X,
   Eye, CheckCircle2, XCircle, Clock, Loader2, RefreshCw, ExternalLink,
-  ChevronRight, Mail, Phone, Calendar, UserPlus
+  ChevronRight, Mail, Phone, Calendar, UserPlus, Download, Users2, Trash2
 } from 'lucide-react';
 import {
   fetchAllAgents,
   approveAgent,
   unapproveAgent,
+  deleteAgent,
   formatAgentName,
   formatDate,
 } from '../Firebase/hrHelpers';
@@ -26,6 +27,8 @@ const HRDashboard = () => {
   const [agents, setAgents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState(false);
+  const [viewingTeamOf, setViewingTeamOf] = useState(null);
+  const searchInputRef = useRef(null);
 
   const handleLogout = async () => {
     try {
@@ -49,6 +52,17 @@ const HRDashboard = () => {
 
   useEffect(() => { loadAgents(); }, [loadAgents]);
 
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   const stats = {
     total: agents.length,
     pending: agents.filter((a) => a.status !== 'Approved').length,
@@ -58,12 +72,14 @@ const HRDashboard = () => {
   const filteredAgents = agents.filter((a) => {
     const q = searchQuery.toLowerCase();
     const name = formatAgentName(a).toLowerCase();
-    return name.includes(q) || (a.email || '').toLowerCase().includes(q) || (a.mobile1 || '').includes(q);
+    const referralCode = (a.ownReferralCode || '').toLowerCase();
+    return name.includes(q) || referralCode.includes(q) || (a.email || '').toLowerCase().includes(q) || (a.mobile1 || '').includes(q);
   });
 
   const navigateTo = (tab) => {
     setActiveTab(tab);
     setSelectedAgent(null);
+    setViewingTeamOf(null);
     setSidebarOpen(false);
   };
 
@@ -99,6 +115,56 @@ const HRDashboard = () => {
     }
   };
 
+  const handleDelete = async (agent) => {
+    if (!window.confirm(`Are you sure you want to delete ${formatAgentName(agent)}? This action cannot be undone.`)) return;
+    setActionLoading(true);
+    try {
+      await deleteAgent(agent.id, agent.partnerRequestId);
+      await loadAgents();
+      if (selectedAgent?.id === agent.id) setSelectedAgent(null);
+    } catch (err) {
+      alert('Failed to delete agent.');
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const downloadCSV = () => {
+    const approvedAgents = agents.filter(a => a.status === 'Approved');
+    if (approvedAgents.length === 0) {
+      alert("No approved agents to download.");
+      return;
+    }
+
+    const headers = [
+      'Agent ID', 'Name', 'Email', 'Mobile', 'Referral Code', 'Applied On', 'Status'
+    ];
+
+    const rows = approvedAgents.map(a => [
+      a.agentId || '',
+      formatAgentName(a),
+      a.email || '',
+      a.mobile1 || '',
+      a.ownReferralCode || '',
+      formatDate(a.createdAt),
+      a.status || 'Pending'
+    ]);
+
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(row => row.map(cell => `"${cell}"`).join(','))
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `approved_agents_${new Date().toISOString().split('T')[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const menuItems = [
     { id: 'dashboard', name: 'Dashboard', icon: LayoutDashboard },
     { id: 'registrations', name: 'Registrations', icon: UserCheck },
@@ -106,10 +172,16 @@ const HRDashboard = () => {
     { id: 'add-agent', name: 'Add Agent', icon: UserPlus },
   ];
 
-  const currentList =
-    activeTab === 'approved'
+  const currentList = (() => {
+    let list = activeTab === 'approved'
       ? filteredAgents.filter((a) => a.status === 'Approved')
       : filteredAgents;
+
+    if (viewingTeamOf) {
+      list = agents.filter(a => a.referralCode === viewingTeamOf.ownReferralCode);
+    }
+    return list;
+  })();
 
   return (
     <div className="hr-panel-wrapper">
@@ -210,12 +282,21 @@ const HRDashboard = () => {
           <div className="hr-search-wrap">
             <Search className="hr-search-icon" size={20} />
             <input 
+              ref={searchInputRef}
               type="text" 
               className="hr-search-input" 
-              placeholder="Search name, email, or mobile..." 
+              placeholder="Search by name, referral code, email..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
+            {searchQuery && (
+              <button className="hr-search-clear" onClick={() => setSearchQuery('')}>
+                <X size={16} />
+              </button>
+            )}
+            <div className="hr-search-badge">
+              <span>Press / to focus</span>
+            </div>
           </div>
         )}
 
@@ -255,8 +336,26 @@ const HRDashboard = () => {
             {(activeTab === 'registrations' || activeTab === 'approved') && (
               <div className="hr-table-card">
                 <div className="hr-table-header">
-                  <h2>{activeTab === 'approved' ? 'Active Partners' : 'All Partner Registrations'}</h2>
-                  <p>{currentList.length} record{currentList.length !== 1 ? 's' : ''} found</p>
+                  <div className="d-flex flex-column">
+                    <h2>
+                      {viewingTeamOf 
+                        ? `Team Members of ${formatAgentName(viewingTeamOf)}` 
+                        : activeTab === 'approved' ? 'Active Partners' : 'All Partner Registrations'}
+                    </h2>
+                    <p>{currentList.length} record{currentList.length !== 1 ? 's' : ''} found</p>
+                  </div>
+                  <div className="d-flex gap-2">
+                    {viewingTeamOf && (
+                      <button className="btn-hr-view" onClick={() => setViewingTeamOf(null)}>
+                        Back to List
+                      </button>
+                    )}
+                    {activeTab === 'approved' && !viewingTeamOf && (
+                      <button className="btn-hr-approve" onClick={downloadCSV}>
+                        <Download size={14} className="me-2" /> Download CSV
+                      </button>
+                    )}
+                  </div>
                 </div>
                 <div className="hr-table-cols">
                   <div className="hr-col-label">Applicant</div>
@@ -291,13 +390,30 @@ const HRDashboard = () => {
                             <Eye size={14} /> View
                           </button>
                           {agent.status === 'Approved' && (
-                            <button 
-                              className="btn-hr-unapprove" 
-                              onClick={() => handleUnapprove(agent)}
-                              disabled={actionLoading}
-                            >
-                              Unapprove
-                            </button>
+                            <>
+                              <button 
+                                className="btn-hr-view" 
+                                onClick={() => setViewingTeamOf(agent)}
+                                title="View Team"
+                              >
+                                <Users2 size={14} /> Team
+                              </button>
+                              <button 
+                                className="btn-hr-unapprove" 
+                                onClick={() => handleUnapprove(agent)}
+                                disabled={actionLoading}
+                              >
+                                Unapprove
+                              </button>
+                              <button 
+                                className="btn-hr-delete" 
+                                onClick={() => handleDelete(agent)}
+                                disabled={actionLoading}
+                                title="Delete Agent"
+                              >
+                                <Trash2 size={14} />
+                              </button>
+                            </>
                           )}
                         </div>
                       </div>

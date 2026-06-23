@@ -138,11 +138,11 @@ const GalleryModal = ({ open, onClose, editingItem, onSuccess }) => {
                 key={i}
                 type="button"
                 onClick={() => setPrimaryIndex(i)}
-                className={`relative rounded-lg overflow-hidden border-2 ${primaryIndex === i ? 'border-[#1174d6]' : 'border-slate-200'}`}
+                className={`relative rounded-lg overflow-hidden border-2 ${primaryIndex === i ? 'border-[#4A97E4]' : 'border-slate-200'}`}
               >
                 <img src={src} alt="" className="w-full h-16 object-cover" />
                 {primaryIndex === i && (
-                  <span className="absolute inset-0 flex items-center justify-center bg-[#1174d6]/20 text-[10px] font-bold text-[#1174d6]">PRIMARY</span>
+                  <span className="absolute inset-0 flex items-center justify-center bg-[#4A97E4]/20 text-[10px] font-bold text-[#4A97E4]">PRIMARY</span>
                 )}
               </button>
             ))}

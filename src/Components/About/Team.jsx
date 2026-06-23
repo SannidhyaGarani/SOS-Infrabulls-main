@@ -33,7 +33,7 @@ const Team = () => {
   return (
     <>
       <style>{`:root {
-  --primary-gold: #1174d6;
+  --primary-gold: #4A97E4;
   --deep-navy: #0A2540;
   --soft-gray: #f8fafc;
   --glass-bg: rgba(255, 255, 255, 0.88);
@@ -291,7 +291,7 @@ const Team = () => {
                       className="team-img"
                     />
                     <div className="image-overlay"></div>
-                    
+
                     <div className="member-info-floating">
                       <h3 className="member-name">{m.name}</h3>
                       <p className="member-role text-center mt-0 pt-0">{m.role.toLowerCase()}</p>

@@ -269,7 +269,7 @@ const Complete = () => {
 
                 .hero-title strong {
                     font-weight: 600;
-                    color: #1174d6;
+                    color: #4A97E4;
                 }
 
                 .director-container {

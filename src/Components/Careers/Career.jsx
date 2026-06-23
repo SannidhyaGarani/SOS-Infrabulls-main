@@ -126,7 +126,7 @@ export default function Career() {
                 }
                 .hero-content-career { position: relative; z-index: 2; padding: 6rem 0; text-align: center; }
                 .hero-title-career { font-size: 4.5rem; font-weight: 300; color: white; margin-bottom: 1.5rem; font-family: 'Georgia', serif; }
-                .hero-title-career strong { font-weight: 600; color: #1174d6; }
+                .hero-title-career strong { font-weight: 600; color: #4A97E4; }
                 .director-container-career { max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
             `}</style>
 

@@ -22,7 +22,7 @@
   border-radius: 20px;
   border: 1px solid rgba(17, 116, 214, 0.25);
   overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.09);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.09);
   transition: 0.35s ease;
   padding-bottom: 1.2rem;
   transform-style: preserve-3d;
@@ -30,7 +30,7 @@
 
 /* 3D hover */
 .blog-card:hover {
-  box-shadow: 0 28px 55px rgba(0,0,0,0.15);
+  box-shadow: 0 28px 55px rgba(0, 0, 0, 0.15);
 }
 
 /* Blog Image */
@@ -57,7 +57,7 @@
   position: absolute;
   bottom: 12px;
   right: 12px;
-  background: #1174d6;
+  background: #4A97E4;
   padding: 6px 12px;
   color: #fff;
   border-radius: 8px;
@@ -82,7 +82,7 @@
 }
 
 .category {
-  color: #1174d6;
+  color: #4A97E4;
   font-weight: 600;
 }
 
@@ -133,79 +133,79 @@
 ================================ */
 
 .vlogs-coming-section.light {
-    position: relative;
-    padding: 120px 0;
-    background: #ffffff;
-    overflow: hidden;
+  position: relative;
+  padding: 120px 0;
+  background: #ffffff;
+  overflow: hidden;
 }
 
 .vlogs-coming-section.light::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(circle at top, rgba(99,102,241,0.08), transparent 45%),
-        radial-gradient(circle at bottom, rgba(139,92,246,0.08), transparent 45%);
-    pointer-events: none;
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at top, rgba(99, 102, 241, 0.08), transparent 45%),
+    radial-gradient(circle at bottom, rgba(139, 92, 246, 0.08), transparent 45%);
+  pointer-events: none;
 }
 
 .vlogs-content {
-    text-align: center;
-    max-width: 860px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 2;
+  text-align: center;
+  max-width: 860px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
 }
 
 .vlogs-eyebrow {
-    display: inline-block;
-    font-size: 13px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #6366f1;
-    margin-bottom: 18px;
+  display: inline-block;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #6366f1;
+  margin-bottom: 18px;
 }
 
 .vlogs-title {
-    font-size: 48px;
-    font-weight: 700;
-    color: #0f172a;
-    margin-bottom: 18px;
-    line-height: 1.2;
+  font-size: 48px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 18px;
+  line-height: 1.2;
 }
 
 .vlogs-subtitle {
-    font-size: 17px;
-    color: #475569;
-    line-height: 1.75;
-    margin-bottom: 42px;
+  font-size: 17px;
+  color: #475569;
+  line-height: 1.75;
+  margin-bottom: 42px;
 }
 
 .vlogs-divider {
-    width: 90px;
-    height: 3px;
-    margin: 0 auto 26px;
-    background: linear-gradient(90deg, #6366f1, #8b5cf6);
-    border-radius: 10px;
+  width: 90px;
+  height: 3px;
+  margin: 0 auto 26px;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  border-radius: 10px;
 }
 
 .vlogs-note {
-    font-size: 14px;
-    letter-spacing: 1px;
-    color: #64748b;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: #64748b;
 }
 
 /* Mobile */
 @media (max-width: 768px) {
-    .vlogs-title {
-        font-size: 34px;
-    }
+  .vlogs-title {
+    font-size: 34px;
+  }
 
-    .vlogs-subtitle {
-        font-size: 15px;
-    }
+  .vlogs-subtitle {
+    font-size: 15px;
+  }
 
-    .vlogs-coming-section.light {
-        padding: 90px 0;
-    }
+  .vlogs-coming-section.light {
+    padding: 90px 0;
+  }
 }

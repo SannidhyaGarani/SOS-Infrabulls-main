@@ -90,8 +90,15 @@
 }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ======================================================
@@ -117,7 +124,7 @@
 
 .brochure-download-btn-premium:hover {
   background: #fff;
-  color: #1174d6;
+  color: #4A97E4;
   transform: translateY(-5px) scale(1.02);
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
 }
@@ -177,9 +184,20 @@
   flex-shrink: 0;
 }
 
-.info-icon-box.blue { background: #e0f2fe; color: #0369a1; }
-.info-icon-box.light-blue { background: #f0f9ff; color: #0ea5e9; }
-.info-icon-box.orange { background: #fff7ed; color: #c2410c; }
+.info-icon-box.blue {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.info-icon-box.light-blue {
+  background: #f0f9ff;
+  color: #0ea5e9;
+}
+
+.info-icon-box.orange {
+  background: #fff7ed;
+  color: #c2410c;
+}
 
 .info-content {
   display: flex;
@@ -217,7 +235,7 @@
   content: '';
   width: 4px;
   height: 28px;
-  background: #1174d6;
+  background: #4A97E4;
   border-radius: 4px;
   display: inline-block;
 }
@@ -263,7 +281,7 @@
 }
 
 .star-icon {
-  color: #1174d6;
+  color: #4A97E4;
   font-size: 0.8rem;
 }
 
@@ -287,19 +305,19 @@
 
 .modern-config-card:hover {
   transform: translateY(-5px);
-  border-color: #1174d6;
+  border-color: #4A97E4;
 }
 
 .modern-config-card h3 {
   font-size: 1.2rem;
-  color: #1174d6;
+  color: #4A97E4;
   font-weight: 700;
 }
 
 .config-divider {
   width: 30px;
   height: 2px;
-  background: #1174d6;
+  background: #4A97E4;
   margin: 0.75rem auto;
 }
 
@@ -308,7 +326,7 @@
   border-radius: 12px;
   border: 1px solid #e2e8f0;
   overflow: hidden;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .modern-pricing-table {
@@ -403,11 +421,11 @@
     flex-direction: column;
     text-align: center;
   }
-  
+
   .hero-title-new {
     font-size: 2.5rem;
   }
-  
+
   .hero-desc-new {
     font-size: 1rem;
   }
@@ -417,15 +435,15 @@
   .project-hero-new {
     height: 60vh;
   }
-  
+
   .hero-main-content {
     text-align: center;
   }
-  
+
   .hero-top-badges {
     justify-content: center;
   }
-  
+
   .section-title-bar {
     font-size: 1.5rem;
   }
@@ -435,7 +453,7 @@
   .hero-title-new {
     font-size: 2rem;
   }
-  
+
   .modern-cta-box-wrapper {
     padding: 2rem 1.5rem;
   }

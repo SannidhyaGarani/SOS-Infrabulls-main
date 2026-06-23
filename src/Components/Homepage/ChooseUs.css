@@ -35,8 +35,13 @@
 }
 
 @keyframes drift {
-    0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(50px, 80px) scale(1.1); }
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    100% {
+        transform: translate(50px, 80px) scale(1.1);
+    }
 }
 
 .container {
@@ -58,7 +63,7 @@
     padding: 0.6rem 2rem;
     background: rgba(17, 116, 214, 0.05);
     backdrop-filter: blur(12px);
-    color: #1174d6;
+    color: #4A97E4;
     border: 1px solid rgba(17, 116, 214, 0.15);
     border-radius: 100px;
     font-size: 0.75rem;
@@ -66,7 +71,7 @@
     text-transform: uppercase;
     letter-spacing: 4px;
     margin-bottom: 2rem;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
 }
 
 .section-title {
@@ -94,7 +99,8 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2.5rem;
-    align-items: center; /* This allows the middle card to be taller without stretching others */
+    align-items: center;
+    /* This allows the middle card to be taller without stretching others */
 }
 
 /* --- Premium Card Architecture --- */
@@ -127,7 +133,7 @@
 
 /* --- The Highlight Card (Middle) --- */
 .highlight-card {
-    transform: scale(1.08); 
+    transform: scale(1.08);
     box-shadow: 0 30px 60px -12px rgba(17, 116, 214, 0.15), 0 18px 36px -18px rgba(0, 0, 0, 0.1);
     z-index: 10;
     overflow: hidden;
@@ -140,8 +146,15 @@
 }
 
 @keyframes float {
-    0%, 100% { transform: scale(1.08) translateY(0); }
-    50% { transform: scale(1.08) translateY(-15px); }
+
+    0%,
+    100% {
+        transform: scale(1.08) translateY(0);
+    }
+
+    50% {
+        transform: scale(1.08) translateY(-15px);
+    }
 }
 
 /* Spinning Conic Gradient Magic */
@@ -151,27 +164,31 @@
     left: -50%;
     width: 200%;
     height: 200%;
-    background: conic-gradient(
-        from 0deg,
-        transparent 0%,
-        transparent 70%,
-        #1174d6 80%,
-        #ffd782 90%,
-        #1174d6 100%
-    );
+    background: conic-gradient(from 0deg,
+            transparent 0%,
+            transparent 70%,
+            #4A97E4 80%,
+            #ffd782 90%,
+            #4A97E4 100%);
     animation: spin 3s linear infinite;
     z-index: 1;
     opacity: 0.8;
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* Ensure inner card blocks the middle of the spin, creating a border */
 .highlight-card .card-inner {
-    background: #ffffff; /* Solid white for the featured card */
+    background: #ffffff;
+    /* Solid white for the featured card */
 }
 
 /* --- Icons --- */
@@ -183,7 +200,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #1174d6;
+    color: #4A97E4;
     margin-bottom: 2.5rem;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
@@ -191,14 +208,14 @@
 }
 
 .featured-icon {
-    background: linear-gradient(135deg, #1174d6, #0c5fae);
+    background: linear-gradient(135deg, #4A97E4, #0c5fae);
     color: white;
     box-shadow: 0 10px 30px rgba(17, 116, 214, 0.3);
     border: none;
 }
 
 .premium-card:hover .card-icon:not(.featured-icon) {
-    background: #1174d6;
+    background: #4A97E4;
     color: white;
     transform: scale(1.1) rotate(10deg);
     box-shadow: 0 15px 35px rgba(17, 116, 214, 0.2);
@@ -224,10 +241,11 @@
         grid-template-columns: repeat(2, 1fr);
         align-items: stretch;
     }
-    
+
     .highlight-card {
         transform: scale(1);
-        grid-column: 1 / -1; /* Make the middle card span full width on tablet */
+        grid-column: 1 / -1;
+        /* Make the middle card span full width on tablet */
     }
 
     .highlight-card:hover {
@@ -239,11 +257,11 @@
     .cards-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .section-title {
         font-size: 2.5rem;
     }
-    
+
     .card-inner {
         padding: 2.5rem 1.5rem;
     }
@@ -253,7 +271,7 @@
     position: absolute;
     top: 2rem;
     right: 2rem;
-    background: linear-gradient(135deg, #1174d6, #0c5fae);
+    background: linear-gradient(135deg, #4A97E4, #0c5fae);
     color: white;
     padding: 0.35rem 0.85rem;
     border-radius: 50px;

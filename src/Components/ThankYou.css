@@ -1,7 +1,7 @@
 /* Premium Corporate & Luxury Variable Theme matching JoinAsPartner */
 :root {
   --primary-brand: #0A2540;
-  --accent-blue: #1174d6;
+  --accent-blue: #4A97E4;
   --neutral-soft: #f8fafc;
   --border-color: #e2e8f0;
   --text-dark: #334155;
@@ -56,6 +56,7 @@
     transform: scale(0.6);
     opacity: 0;
   }
+
   100% {
     transform: scale(1);
     opacity: 1;

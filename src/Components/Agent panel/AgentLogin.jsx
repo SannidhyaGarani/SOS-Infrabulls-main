@@ -96,7 +96,7 @@ const AgentLogin = () => {
               type="submit"
               disabled={loading}
               className="btn w-100 py-3 fw-bold shadow-lg d-flex align-items-center justify-content-center gap-2"
-              style={{ background: '#1174d6', color: 'white', borderRadius: '12px' }}
+              style={{ background: '#4A97E4', color: 'white', borderRadius: '12px' }}
             >
               {loading ? (
                 <>

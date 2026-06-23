@@ -37,7 +37,7 @@
     position: absolute;
     bottom: 10px;
     left: 12px;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0, 0, 0, 0.6);
     padding: 6px 14px;
     border-radius: 12px;
     color: #fff;
@@ -68,7 +68,7 @@
 
 .premium-blog-link {
     font-weight: 600;
-    color: #1174d6;
+    color: #4A97E4;
 }
 
 @media (max-width: 992px) {
@@ -76,6 +76,3 @@
         grid-template-columns: 1fr;
     }
 }
-
-
-

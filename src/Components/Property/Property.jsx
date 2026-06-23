@@ -78,7 +78,7 @@ export default function PropertyPage() {
     <>
       <Breadcrumb />
       <div className="container-fluid bg-white shadow-sm py-3 sticky-top topbar">
-        
+
       </div>
 
       <div className="container-fluid premium-property-section">
@@ -100,7 +100,7 @@ export default function PropertyPage() {
                 width: "60px",
                 height: "60px",
                 border: "5px solid #e2e8f0",
-                borderTopColor: "#1174d6",
+                borderTopColor: "#4A97E4",
                 borderRadius: "50%",
                 animation: "spin 1s linear infinite",
                 margin: "0 auto"

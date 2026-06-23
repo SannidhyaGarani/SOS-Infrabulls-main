@@ -13,7 +13,7 @@ const VisionMissionPage = () => {
         .section-label {
           display: inline-block;
           background: linear-gradient(135deg, rgba(17, 116, 214, 0.1), rgba(255, 215, 130, 0.1));
-          color: #1174d6;
+          color: #4A97E4;
           padding: 0.5rem 1.2rem;
           border-radius: 50px;
           font-size: 0.85rem;
@@ -62,7 +62,7 @@ const VisionMissionPage = () => {
           left: 0;
           right: 0;
           height: 4px;
-          background: linear-gradient(90deg, #1174d6, #ffd782);
+          background: linear-gradient(90deg, #4A97E4, #ffd782);
         }
 
         .value-card:hover {
@@ -106,7 +106,7 @@ const VisionMissionPage = () => {
         .value-letter {
           font-size: 2.5rem;
           font-weight: 900;
-          background: linear-gradient(135deg, #1174d6, #ffd782);
+          background: linear-gradient(135deg, #4A97E4, #ffd782);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           margin-bottom: 0.5rem;

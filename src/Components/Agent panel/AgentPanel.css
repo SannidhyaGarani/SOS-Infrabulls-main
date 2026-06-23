@@ -16,7 +16,7 @@
   --agent-text-body: #334155;
   --agent-text-muted: #64748b;
   --agent-text-dim: #94a3b8;
-  --agent-accent: #1174d6;
+  --agent-accent: #4A97E4;
   --agent-accent-dark: #0c5fae;
   --agent-accent-glow: rgba(17, 116, 214, 0.08);
   --agent-accent-rgb: 17, 116, 214;
@@ -66,13 +66,13 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  background: linear-gradient(180deg, rgba(17,116,214,0.02) 0%, transparent 100%);
+  background: linear-gradient(180deg, rgba(17, 116, 214, 0.02) 0%, transparent 100%);
 }
 
 .agent-sidebar-logo {
   height: 64px;
   margin-bottom: 0.25rem;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.06));
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.06));
 }
 
 .agent-sidebar-nav {
@@ -87,6 +87,7 @@
 .agent-sidebar-nav::-webkit-scrollbar {
   width: 4px;
 }
+
 .agent-sidebar-nav::-webkit-scrollbar-thumb {
   background: var(--agent-border);
   border-radius: 10px;
@@ -185,7 +186,7 @@
 
 /* Hero Card */
 .agent-hero-card {
-  background: linear-gradient(135deg, #1174d6 0%, #0c5fae 60%, #7c3aed 100%);
+  background: linear-gradient(135deg, #4A97E4 0%, #0c5fae 60%, #7c3aed 100%);
   border-radius: var(--agent-radius-xl);
   padding: 2.5rem;
   color: white;
@@ -201,7 +202,7 @@
   right: -80px;
   width: 280px;
   height: 280px;
-  background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
   border-radius: 50%;
 }
 
@@ -212,7 +213,7 @@
   left: -40px;
   width: 200px;
   height: 200px;
-  background: radial-gradient(circle, rgba(255,215,130,0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255, 215, 130, 0.1) 0%, transparent 70%);
   border-radius: 50%;
 }
 
@@ -280,7 +281,7 @@
 
 /* ── Digital ID Card ───────────────────────────────────────── */
 .digital-id-card {
-  background: linear-gradient(135deg, #1174d6 0%, #0c5fae 50%, #7c3aed 100%);
+  background: linear-gradient(135deg, #4A97E4 0%, #0c5fae 50%, #7c3aed 100%);
   border-radius: var(--agent-radius-xl);
   padding: 2rem;
   width: 100%;
@@ -289,7 +290,7 @@
   color: white;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 24px 60px rgba(17, 116, 214, 0.3), 0 0 1px rgba(0,0,0,0.05);
+  box-shadow: 0 24px 60px rgba(17, 116, 214, 0.3), 0 0 1px rgba(0, 0, 0, 0.05);
 }
 
 .digital-id-card::before {
@@ -299,7 +300,7 @@
   right: -40px;
   width: 180px;
   height: 180px;
-  background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
   border-radius: 50%;
 }
 
@@ -370,8 +371,13 @@
 }
 
 @keyframes agentSpin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .animate-pulse {
@@ -379,8 +385,15 @@
 }
 
 @keyframes agentPulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.4;
+  }
 }
 
 /* ── Mobile Bottom Navigation Bar ──────────────────────────── */
@@ -400,8 +413,13 @@
 }
 
 @keyframes agent-fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -437,6 +455,7 @@
    Premium mobile-first design for agent users
    ═══════════════════════════════════════════════════════════════ */
 @media (max-width: 767.98px) {
+
   /* Root adjustments for mobile */
   .agent-portal-wrapper {
     flex-direction: column;
@@ -460,7 +479,7 @@
   }
 
   /* Main content area — full width, proper padding */
-  .agent-portal-wrapper > .flex-grow-1 main {
+  .agent-portal-wrapper>.flex-grow-1 main {
     padding: 1rem !important;
     max-width: 100% !important;
   }
@@ -539,7 +558,7 @@
   }
 
   /* KYC Cards — Mobile layout */
-  .row.g-4 > .col-md-4 {
+  .row.g-4>.col-md-4 {
     flex: 0 0 100%;
     max-width: 100%;
   }
@@ -670,7 +689,7 @@
   }
 
   /* Add bottom padding to main content to prevent overlap with bottom nav */
-  .agent-portal-wrapper > .flex-grow-1 {
+  .agent-portal-wrapper>.flex-grow-1 {
     padding-bottom: 72px;
   }
 
@@ -699,7 +718,7 @@
   }
 
   /* Stats row on mobile */
-  .row.g-4.mb-4 > .col-md-4 {
+  .row.g-4.mb-4>.col-md-4 {
     flex: 0 0 100%;
     max-width: 100%;
   }

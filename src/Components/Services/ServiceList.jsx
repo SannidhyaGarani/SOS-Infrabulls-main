@@ -1,6 +1,6 @@
 import React from "react";
 
-const primaryColor = "#1174d6";
+const primaryColor = "#4A97E4";
 
 const serviceData = [
   {

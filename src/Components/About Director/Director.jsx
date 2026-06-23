@@ -26,7 +26,7 @@ function Director() {
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap');
 
         :root {
-          --brand-blue: #1174d6;
+          --brand-blue: #4A97E4;
           --brand-gold: #ffd782;
           --brand-gold-dark: #d4af37;
           --slate-900: #0f172a;
@@ -252,7 +252,7 @@ function Director() {
               </div>
               <div className="dir-geometric-frame"></div>
             </div>
-            
+
             <div className="dir-info-box">
               <h2 className="dir-name">Mr. Pawan Tilve</h2>
               <div className="dir-role">Founder & Managing Director</div>

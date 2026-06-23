@@ -32,7 +32,7 @@
 }
 
 .premium-back-btn:hover {
-    color: #1174d6;
+    color: #4A97E4;
 }
 
 /* Loading State */
@@ -55,7 +55,7 @@
     width: 100%;
     height: 100%;
     border: 3px solid #e2e8f0;
-    border-top: 3px solid #1174d6;
+    border-top: 3px solid #4A97E4;
     border-radius: 50%;
     animation: premiumSpin 1s linear infinite;
 }
@@ -66,8 +66,13 @@
 }
 
 @keyframes premiumSpin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* Main Layout */
@@ -116,7 +121,7 @@
 }
 
 .premium-featured {
-    background: linear-gradient(135deg, #1174d6, #0a56a5);
+    background: linear-gradient(135deg, #4A97E4, #0a56a5);
     color: white;
 }
 
@@ -168,7 +173,7 @@
 }
 
 .premium-thumbnail.active {
-    border: 2px solid #1174d6;
+    border: 2px solid #4A97E4;
 }
 
 .premium-thumbnail img {
@@ -219,7 +224,7 @@
 }
 
 .premium-tab-btn.active {
-    color: #1174d6;
+    color: #4A97E4;
 }
 
 .premium-tab-btn.active::after {
@@ -229,7 +234,7 @@
     left: 0;
     width: 100%;
     height: 3px;
-    background: linear-gradient(135deg, #1174d6, #0a56a5);
+    background: linear-gradient(135deg, #4A97E4, #0a56a5);
 }
 
 .premium-tab-content {
@@ -337,7 +342,7 @@
 
 .premium-map-placeholder {
     height: 200px;
-    background: linear-gradient(135deg, #1174d6, #0a56a5);
+    background: linear-gradient(135deg, #4A97E4, #0a56a5);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -400,7 +405,7 @@
 .premium-price {
     font-size: 2.5rem;
     font-weight: 800;
-    color: #1174d6;
+    color: #4A97E4;
     margin-bottom: 8px;
 }
 
@@ -504,7 +509,7 @@
 }
 
 .premium-contact-btn.primary {
-    background: linear-gradient(135deg, #1174d6, #0a56a5);
+    background: linear-gradient(135deg, #4A97E4, #0a56a5);
     color: white;
 }
 
@@ -546,7 +551,7 @@
 }
 
 .premium-action-btn.primary {
-    background: linear-gradient(135deg, #1174d6, #0a56a5);
+    background: linear-gradient(135deg, #4A97E4, #0a56a5);
     color: white;
 }
 
@@ -557,12 +562,12 @@
 
 .premium-action-btn.outline {
     background: transparent;
-    color: #1174d6;
-    border: 2px solid #1174d6;
+    color: #4A97E4;
+    border: 2px solid #4A97E4;
 }
 
 .premium-action-btn.outline:hover {
-    background: #1174d6;
+    background: #4A97E4;
     color: white;
 }
 
@@ -600,11 +605,11 @@
         grid-template-columns: 1fr;
         gap: 20px;
     }
-    
+
     .premium-property-sidebar {
         position: static;
     }
-    
+
     .premium-property-highlights {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -614,31 +619,31 @@
     .premium-container {
         padding: 0 16px;
     }
-    
+
     .premium-property-layout {
         padding: 20px 0;
     }
-    
+
     .premium-main-image img {
         height: 300px;
     }
-    
+
     .premium-tab-nav {
         flex-direction: column;
     }
-    
+
     .premium-tab-btn {
         padding: 15px;
     }
-    
+
     .premium-agent-contact {
         flex-direction: column;
     }
-    
+
     .premium-amenities-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .premium-property-highlights {
         grid-template-columns: 1fr;
     }
@@ -648,15 +653,15 @@
     .premium-sidebar-card {
         padding: 20px;
     }
-    
+
     .premium-price {
         font-size: 2rem;
     }
-    
+
     .premium-tab-content {
         padding: 20px;
     }
-    
+
     .premium-thumbnail-grid {
         grid-template-columns: repeat(2, 1fr);
     }
