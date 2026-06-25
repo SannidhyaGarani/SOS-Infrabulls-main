@@ -294,17 +294,15 @@ const Footer = () => {
                         <div className="premium-footer-bottom-content">
                             <div className="premium-copyright">
                                 <p>© 2025 SOS Infrabulls. All rights reserved.</p>
-                                {/* <p className="premium-company-info">Premium Real Estate Services Since 2019</p> */}
+                               
                             </div>
-                            <div className="premium-legal-links">
-
-                                <Link to="/terms">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                                        <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2ZM6 20V4H13V9H18V20H6Z" fill="currentColor" />
-                                    </svg>
-                                    Terms of Service
-                                </Link>
+                            <div className="premium-copyright">
+                                 <p className="premium-designed-by">
+                                    Designed by <a href="https://letskillify.com" target="_blank" rel="noopener noreferrer">letskillify.</a>
+                                </p>
+                               
                             </div>
+                            
                         </div>
                     </div>
                 </div>

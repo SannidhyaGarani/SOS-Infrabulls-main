@@ -580,6 +580,25 @@
     font-size: 0.9rem;
 }
 
+.premium-designed-by {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 8px;
+}
+
+.premium-designed-by a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.premium-designed-by a:hover {
+    color: #4A97E4;
+    border-bottom-color: #4A97E4;
+}
+
 .premium-company-info {
     font-size: 0.85rem;
     color: rgba(255, 255, 255, 0.5) !important;
