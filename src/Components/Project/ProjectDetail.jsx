@@ -115,7 +115,7 @@ const ProjectDetail = () => {
                                 <a
                                     href={project.brochure}
                                     target="_blank"
-                                    rel="noreferrer"
+                                    rel="noopener noreferrer"
                                     download
                                     className="brochure-download-btn-premium"
                                 >

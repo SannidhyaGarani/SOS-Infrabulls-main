@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 .pc-wrapper {
-  padding: 140px 20px;
+  padding: 60px 20px;
   background: #f8fafc;
   font-family: 'Plus Jakarta Sans', sans-serif;
   position: relative;
@@ -43,7 +43,7 @@
 /* --- Header Section --- */
 .pc-header {
   text-align: center;
-  margin-bottom: 90px;
+  margin-bottom: 40px;
 }
 
 .pc-badge {
@@ -264,21 +264,48 @@
 }
 
 @media (max-width: 640px) {
+  .pc-wrapper {
+    padding: 40px 15px;
+  }
+
   .pc-grid {
-    grid-template-columns: 1fr;
-    gap: 25px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
   }
 
   .pc-main-title {
-    margin-top: 15px;
+    margin-top: 10px;
+    font-size: 1.8rem;
   }
 
   .pc-header {
-    margin-bottom: 60px;
+    margin-bottom: 30px;
   }
 
   .pc-card-inner {
-    padding: 40px 24px;
+    padding: 25px 15px;
+    border-radius: 20px;
+  }
+
+  .pc-icon-box {
+    width: 48px;
+    height: 48px;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    border-radius: 14px;
+  }
+
+  .pc-number {
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+  }
+
+  .pc-label {
+    font-size: 0.8rem;
+  }
+
+  .pc-icon-container {
+    margin-bottom: 15px;
   }
 }
 

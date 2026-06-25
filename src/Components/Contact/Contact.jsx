@@ -3,6 +3,7 @@ import emailjs from "@emailjs/browser";
 import "./Contact.css";
 import Breadcrumb from "./Breadcrumb";
 import { Link } from "react-router-dom";
+import { sanitizeObject } from "../../utils/security";
 
 const ContactSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -30,16 +31,18 @@ const ContactSection = () => {
 
     setIsSubmitting(true);
 
+    const sanitizedData = sanitizeObject(formData);
+
     emailjs
       .send(
         "service_a3cw276g",
         "template_y529wi6",
         {
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          subject: formData.subject,
-          message: formData.message,
+          name: sanitizedData.name,
+          email: sanitizedData.email,
+          phone: sanitizedData.phone,
+          subject: sanitizedData.subject,
+          message: sanitizedData.message,
         },
         "vEvugozjO3aQJD-Ic"
       )

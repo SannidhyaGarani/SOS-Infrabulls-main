@@ -3,7 +3,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import ThankYou from './Components/ThankYou';
 import CustomCursor from './Components/Common/CustomCursor';
 import FloatingWhatsApp from './Components/Common/FloatingWhatsApp';
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import NotFoundPage from './Components/404/NotFound';
 import ScrollToTop from './Components/ScrollToTop';
 // Preloader Component
@@ -39,6 +39,7 @@ import HRDashboard from './Components/HRPanel/HRDashboard';
 import Privacy from './Components/Legal/Privacy';
 import AgentLogin from './Components/Agent panel/AgentLogin';
 import AgentPanel from './Components/Agent panel/Dashboard';
+import ProtectedAgentRoute from './Components/Agent panel/ProtectedAgentRoute';
 import "./App.css"
 
 function App() {
@@ -139,7 +140,10 @@ function App() {
 
           {/* Agent Portal */}
           <Route path="/agent/login" element={<AgentLogin />} />
-          <Route path="/agent/dashboard" element={<AgentPanel />} />
+          <Route path="/agent" element={<ProtectedAgentRoute />}>
+            <Route index element={<Navigate to="/agent/dashboard" replace />} />
+            <Route path="dashboard" element={<AgentPanel />} />
+          </Route>
 
           {/* 404 Page Route */}
           <Route path="*" element={<NotFoundPage />} />

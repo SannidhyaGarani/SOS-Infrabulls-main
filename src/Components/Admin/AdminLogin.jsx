@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { signInAdmin } from "../Firebase/authHelpers";
+import { rateLimit } from "../../utils/security";
 import "./Admin.css";
 
 const AdminLogin = () => {
@@ -13,11 +14,24 @@ const AdminLogin = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    
+    // Rate limiting
+    if (!rateLimit('admin_login', 5, 60000)) {
+       setError("Too many attempts. Please try again later.");
+       return;
+    }
+
+    if (email.length > 20 || password.length > 20) {
+      setError("Credentials exceed maximum length of 20 characters.");
+      return;
+    }
+
     setLoading(true);
     try {
       await signInAdmin(email, password);
       navigate("/admin", { replace: true });
-    } catch {
+    } catch (err) {
+      // Use generic error message to prevent enumeration
       setError("Invalid credentials");
     } finally {
       setLoading(false);
@@ -43,6 +57,7 @@ const AdminLogin = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                maxLength={20}
                 className="admin-input"
               />
             </div>
@@ -55,6 +70,7 @@ const AdminLogin = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                maxLength={20}
                 className="admin-input"
               />
             </div>

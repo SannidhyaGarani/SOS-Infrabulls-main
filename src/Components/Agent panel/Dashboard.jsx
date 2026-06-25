@@ -13,6 +13,7 @@ import S3Image from '../S3Image';
 import { getImageViewUrl } from '../Firebase/s3UploadService';
 import './AgentPanel.css';
 
+
 const mapAgentInfo = (agent) => {
   const docsUploaded = [agent.photographUrl, agent.panCardUrl, agent.aadhaarCardUrl].filter(Boolean).length;
   return {

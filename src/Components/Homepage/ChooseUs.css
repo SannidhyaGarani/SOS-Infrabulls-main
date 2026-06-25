@@ -1,7 +1,7 @@
 /* ChooseUs.css - Ultra Premium Unique UI */
 
 .choose-us-section {
-    padding: 8rem 0;
+    padding: 4rem 0;
     position: relative;
     overflow: hidden;
     font-family: system-ui, -apple-system, sans-serif;
@@ -55,7 +55,7 @@
 /* --- Typography & Header --- */
 .section-header {
     text-align: center;
-    margin-bottom: 6rem;
+    margin-bottom: 3rem;
 }
 
 .section-label {
@@ -254,16 +254,49 @@
 }
 
 @media (max-width: 768px) {
+    .choose-us-section {
+        padding: 3rem 0;
+    }
+
     .cards-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 
     .section-title {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+        font-size: 1rem;
+    }
+
+    .section-label {
+        margin-bottom: 1rem;
+        padding: 0.5rem 1.5rem;
     }
 
     .card-inner {
-        padding: 2.5rem 1.5rem;
+        padding: 2rem 1.5rem;
+    }
+
+    .card-icon {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 1.5rem;
+    }
+
+    .card-title {
+        font-size: 1.3rem;
+    }
+
+    .card-description {
+        font-size: 0.95rem;
+    }
+
+    .highlight-card {
+        animation: none; /* Reduce visual noise on mobile */
     }
 }
 

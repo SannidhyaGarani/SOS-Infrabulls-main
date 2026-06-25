@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { LogIn, Loader2, Eye, EyeOff } from 'lucide-react';
 import { signInAgent } from '../Firebase/agentHelpers';
+import { rateLimit } from '../../utils/security';
 import './AgentPanel.css';
 
 const AgentLogin = () => {
@@ -15,19 +16,26 @@ const AgentLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+
+    // Rate limiting
+    if (!rateLimit('agent_login', 5, 60000)) {
+      setError("Too many attempts. Please try again later.");
+      return;
+    }
+
+    if (loginId.length > 20 || password.length > 20) {
+      setError("Credentials exceed maximum length of 20 characters.");
+      return;
+    }
+
     setLoading(true);
 
     try {
       await signInAgent(loginId, password);
       navigate('/agent/dashboard');
     } catch (err) {
-      const message =
-        err.code === 'auth/invalid-credential' || err.code === 'auth/wrong-password'
-          ? 'Invalid login ID or password.'
-          : err.code === 'auth/user-not-found'
-            ? 'No account found with this login ID.'
-            : err.message || 'Login failed. Please try again.';
-      setError(message);
+      // Use generic error message to prevent enumeration
+      setError('Invalid login ID or password.');
     } finally {
       setLoading(false);
     }
@@ -66,6 +74,7 @@ const AgentLogin = () => {
                 value={loginId}
                 onChange={(e) => setLoginId(e.target.value)}
                 required
+                maxLength={20}
               />
             </div>
 
@@ -81,6 +90,7 @@ const AgentLogin = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
+                  maxLength={20}
                 />
                 <button
                   type="button"

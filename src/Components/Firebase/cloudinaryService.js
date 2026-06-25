@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dlsbj8nug/image/upload';
-const UPLOAD_PRESET = 'Mahanta_group';
+const CLOUDINARY_URL = import.meta.env.VITE_CLOUDINARY_URL;
+const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
 export const isExternalImageUrl = (value) =>
   typeof value === 'string' && (value.startsWith('http://') || value.startsWith('https://'));

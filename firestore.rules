@@ -1,0 +1,77 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Helper to check if a user is an admin
+    // Note: This assumes you have a document in 'agents' or 'users' collection 
+    // with UID as the ID and a field role: 'admin'
+    function isAdmin() {
+      return isAuthenticated() && 
+        get(/databases/$(database)/documents/agents/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    // Agent profile rules
+    match /agents/{agentId} {
+      // Admin can do anything
+      allow read, write: if isAdmin();
+      
+      // Agents can read their own profile
+      allow read: if isAuthenticated() && request.auth.uid == agentId;
+      
+      // Agents can read members of their team (where team member's referralCode matches agent's ownReferralCode)
+      // This is a bit complex for a single rule, but we can allow read 
+      // if the agent being read matches the logged-in agent's ownReferralCode.
+      // However, for simplicity and safety:
+      allow list: if isAuthenticated(); 
+    }
+
+    // Partner Requests rules
+    match /partnerRequests/{requestId} {
+      allow read, write: if isAdmin();
+      // Allow public to submit requests
+      allow create: if true; 
+    }
+
+    // Public content collections
+    match /projects/{projectId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /properties/{propertyId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /blogs/{blogId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /gallery/{imageId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /team/{memberId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /testimonials/{testimonialId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Default deny for all other collections
+    match /{document=**} {
+      allow read, write: if isAdmin();
+    }
+  }
+}

@@ -2,7 +2,7 @@
 
 /* MAIN WRAPPER */
 .welcome-section-wrapper {
-    padding: 4rem 1rem;
+    padding: 2rem 1rem;
     margin: 0 auto;
     position: relative;
     overflow: hidden;
@@ -11,8 +11,8 @@
 /* CARD - Premium compact design */
 .welcome-card {
     background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-    margin: 20px;
-    padding: 5rem 4rem;
+    margin: 0px;
+    padding: 3rem 4rem;
     border-radius: 50px;
     position: relative;
     overflow: hidden;

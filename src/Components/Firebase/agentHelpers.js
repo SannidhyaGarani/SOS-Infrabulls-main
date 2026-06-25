@@ -52,7 +52,6 @@ export const createAgentAccount = async ({
     ownReferralCode,
     loginId: normalizedEmail,
     email: normalizedEmail,
-    password,
     role: 'agent',
     status: 'Pending',
     fullName,
@@ -121,7 +120,6 @@ export const setAgentPasswordOnce = async (uid, loginId, currentPassword, newPas
 
   await updateDoc(agentRef, {
     passwordChanged: true,
-    password: newPassword,
     passwordChangedAt: serverTimestamp(),
   });
 };

@@ -6,6 +6,7 @@ import { collection, addDoc, doc, serverTimestamp, updateDoc } from 'firebase/fi
 import { createAgentAccount, generateAgentPassword } from './Firebase/agentHelpers';
 import { sendCredentialsViaEmail } from './Firebase/emailService';
 import { uploadToCloudinary } from './Firebase/cloudinaryService';
+import { sanitizeObject } from '../utils/security';
 import './JoinAsPartner.css';
 import Breadcrumb from './About/Breadcrumb';
 
@@ -100,11 +101,12 @@ const JoinAsPartner = () => {
 
       setUploadProgress(95);
 
+      const sanitizedFormData = sanitizeObject(formData);
       const password = generateAgentPassword();
-      const loginId = formData.email.trim().toLowerCase();
+      const loginId = sanitizedFormData.email.trim().toLowerCase();
 
       const partnerRef = await addDoc(collection(db, 'partnerRequests'), {
-        ...formData,
+        ...sanitizedFormData,
         photographUrl,
         panCardUrl,
         aadhaarCardUrl,
@@ -118,7 +120,7 @@ const JoinAsPartner = () => {
       const { uid, agentId, ownReferralCode } = await createAgentAccount({
         email: loginId,
         password,
-        formData,
+        formData: sanitizedFormData,
         photographUrl,
         panCardUrl,
         aadhaarCardUrl,
@@ -128,7 +130,7 @@ const JoinAsPartner = () => {
       await updateDoc(partnerRef, { agentUid: uid, agentId, ownReferralCode });
       setUploadProgress(99);
 
-      const fullName = [formData.firstName, formData.middleName, formData.lastName].filter(Boolean).join(' ');
+      const fullName = [sanitizedFormData.firstName, sanitizedFormData.middleName, sanitizedFormData.lastName].filter(Boolean).join(' ');
       const emailResult = await sendCredentialsViaEmail(loginId, password, fullName);
 
       await updateDoc(doc(db, 'agents', uid), {
