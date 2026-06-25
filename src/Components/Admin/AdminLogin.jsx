@@ -21,7 +21,7 @@ const AdminLogin = () => {
        return;
     }
 
-    if (email.length > 20 || password.length > 20) {
+    if (email.length > 50 || password.length > 20) {
       setError("Credentials exceed maximum length of 20 characters.");
       return;
     }
@@ -57,7 +57,7 @@ const AdminLogin = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                maxLength={20}
+                maxLength={50}
                 className="admin-input"
               />
             </div>

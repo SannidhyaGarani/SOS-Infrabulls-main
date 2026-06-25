@@ -3,7 +3,7 @@ import './Terms.css';
 
 const Terms = () => {
   return (
-    <section className="terms">
+    <section className="terms mt-5">
       <div className="container">
         <header className="terms__header" data-aos="fade-up">
           <h1>Terms and Conditions</h1>

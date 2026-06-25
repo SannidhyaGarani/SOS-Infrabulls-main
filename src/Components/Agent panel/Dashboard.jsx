@@ -168,7 +168,7 @@ const AgentDashboard = () => {
     const approved = status === 'Approved';
     return (
       <span className={`badge rounded-pill px-3 py-1 border ${approved ? 'bg-success-subtle text-success border-success-subtle' : 'bg-warning-subtle text-warning border-warning-subtle'
-        }`} style={{ fontSize: '0.68rem', fontWeight: 700 }}>
+        }`} style={{ fontSize: '0.875rem', fontWeight: 700 }}>
         <span className={`d-inline-block rounded-circle me-1 ${approved ? 'bg-success' : 'bg-warning animate-pulse'}`} style={{ width: '6px', height: '6px' }} />
         {status}
       </span>
@@ -247,8 +247,8 @@ const AgentDashboard = () => {
             <StatusBadge status={agentInfo.status} />
             <div className="d-flex align-items-center gap-2 border-start ps-3 ms-2">
               <div className="text-end d-none d-sm-block">
-                <span className="d-block fw-700 small" style={{ fontSize: '0.78rem' }}>{agentInfo.name}</span>
-                <span className="text-muted" style={{ fontSize: '0.62rem' }}>{agentInfo.email}</span>
+                <span className="d-block fw-700 small" style={{ fontSize: '0.875rem' }}>{agentInfo.name}</span>
+                <span className="text-muted" style={{ fontSize: '0.875rem' }}>{agentInfo.email}</span>
               </div>
               <div className="rounded-circle shadow-sm overflow-hidden border" style={{ width: '34px', height: '34px', borderColor: 'var(--agent-border)' }}>
                 {agentInfo.photographUrl ? (
@@ -273,13 +273,13 @@ const AgentDashboard = () => {
               <div className="agent-hero-card mb-4" style={{ position: 'relative' }}>
                 <div className="row align-items-center">
                   <div className="col-lg-8">
-                    <span className="badge px-3 py-2 bg-white bg-opacity-10 mb-3" style={{ fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.08em' }}>DASHBOARD OVERVIEW</span>
+                    <span className="badge px-3 py-2 bg-white bg-opacity-10 mb-3" style={{ fontSize: '0.875rem', fontWeight: 700, letterSpacing: '0.08em' }}>DASHBOARD OVERVIEW</span>
                     <h2 className="fw-800 mb-2 text-light" style={{ letterSpacing: '-0.03em' }}>Welcome, <span className="fw-light">{agentInfo.name.split(' ')[0]}</span></h2>
                     <div className="d-flex flex-wrap gap-3 mt-3">
                       <div className="bg-white bg-opacity-10 px-3 py-2 rounded-3 border border-white border-opacity-10">
-                        <label className="d-block text-white text-opacity-50 fw-700 uppercase" style={{ fontSize: '0.5rem', letterSpacing: '0.08em' }}>Agent ID</label>
+                        <label className="d-block text-white text-opacity-50 fw-700 uppercase" style={{ fontSize: '0.875rem', letterSpacing: '0.08em' }}>Agent ID</label>
                         <div className="d-flex align-items-center gap-2">
-                          <span className="text-white fw-bold font-monospace small">{agentInfo.agentId}</span>
+                          <span className="text-white fw-bold font-monospace small" style={{ fontSize: '1rem' }}>{agentInfo.agentId}</span>
                           <button
                             className="btn p-0 border-0 text-white text-opacity-50"
                             onClick={() => copyToClipboard(agentInfo.agentId, 'agentId')}
@@ -290,9 +290,9 @@ const AgentDashboard = () => {
                         </div>
                       </div>
                       <div className="bg-white bg-opacity-10 px-3 py-2 rounded-3 border border-white border-opacity-10">
-                        <label className="d-block text-white text-opacity-50 fw-700 uppercase" style={{ fontSize: '0.5rem', letterSpacing: '0.08em' }}>Referral Code</label>
+                        <label className="d-block text-white text-opacity-50 fw-700 uppercase" style={{ fontSize: '0.875rem', letterSpacing: '0.08em' }}>Referral Code</label>
                         <div className="d-flex align-items-center gap-2">
-                          <span className="text-white fw-bold font-monospace small">{agentInfo.ownReferralCode}</span>
+                          <span className="text-white fw-bold font-monospace small" style={{ fontSize: '1rem' }}>{agentInfo.ownReferralCode}</span>
                           <button
                             className="btn p-0 border-0 text-white text-opacity-50"
                             onClick={() => copyToClipboard(agentInfo.ownReferralCode, 'referral')}
@@ -314,9 +314,9 @@ const AgentDashboard = () => {
               <div className="row g-4 mb-4">
                 <div className="col-md-4">
                   <div className="stat-pill">
-                    <span className="text-muted fw-700 text-uppercase d-block mb-3" style={{ fontSize: '0.6rem', letterSpacing: '0.1em' }}>Profile Progress</span>
+                    <span className="text-muted fw-700 text-uppercase d-block mb-3" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>Profile Progress</span>
                     <div className="d-flex align-items-baseline gap-2">
-                      <h2 className="fw-800 m-0" style={{ letterSpacing: '-0.03em' }}>{agentInfo.profileCompletion}%</h2>
+                      <h2 className="fw-800 m-0" style={{ fontSize: '1.75rem', letterSpacing: '-0.03em' }}>{agentInfo.profileCompletion}%</h2>
                       {agentInfo.profileCompletion === 100 && <CheckCircle size={16} className="text-success" />}
                     </div>
                     <div className="progress mt-3" style={{ height: '5px', borderRadius: '10px', background: 'var(--agent-surface-2)' }}>
@@ -326,14 +326,14 @@ const AgentDashboard = () => {
                 </div>
                 <div className="col-md-4">
                   <div className="stat-pill">
-                    <span className="text-muted fw-700 text-uppercase d-block mb-3" style={{ fontSize: '0.6rem', letterSpacing: '0.1em' }}>Account Age</span>
-                    <h2 className="fw-800 m-0" style={{ letterSpacing: '-0.03em' }}>{agentInfo.joiningDate}</h2>
+                    <span className="text-muted fw-700 text-uppercase d-block mb-3" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>Joining date</span>
+                    <h2 className="fw-800 m-0" style={{ fontSize: '1.75rem', letterSpacing: '-0.03em' }}>{agentInfo.joiningDate}</h2>
                   </div>
                 </div>
                 <div className="col-md-4">
                   <div className="stat-pill">
-                    <span className="text-muted fw-700 text-uppercase d-block mb-3" style={{ fontSize: '0.6rem', letterSpacing: '0.1em' }}>Current Level</span>
-                    <h2 className="fw-800 m-0 text-capitalize" style={{ letterSpacing: '-0.03em' }}>{agentInfo.status}</h2>
+                    <span className="text-muted fw-700 text-uppercase d-block mb-3" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>Current Level</span>
+                    <h2 className={`fw-800 m-0 text-capitalize ${agentInfo.status === 'Approved' ? 'text-success' : ''}`} style={{ fontSize: '1.75rem', letterSpacing: '-0.03em' }}>{agentInfo.status}</h2>
                   </div>
                 </div>
               </div>
@@ -362,10 +362,10 @@ const AgentDashboard = () => {
                           {step.done ? <CheckCircle size={15} /> : <Clock size={15} className={step.pending ? 'text-warning' : 'text-muted'} />}
                         </div>
                         <div className="flex-grow-1">
-                          <span className={`fw-700 small ${step.done ? '' : 'text-muted'}`} style={{ color: step.done ? 'var(--agent-text)' : undefined }}>{step.label}</span>
+                          <span className={`fw-700 small ${step.done ? '' : 'text-muted'}`} style={{ color: step.done ? 'var(--agent-text)' : undefined, fontSize: '0.875rem' }}>{step.label}</span>
                         </div>
-                        {step.done && <span className="badge bg-success-subtle text-success small" style={{ fontSize: '0.58rem', fontWeight: 700 }}>COMPLETED</span>}
-                        {step.pending && <span className="badge bg-warning-subtle text-warning small" style={{ fontSize: '0.58rem', fontWeight: 700 }}>IN PROGRESS</span>}
+                        {step.done && <span className="badge bg-success-subtle text-success small" style={{ fontSize: '0.875rem', fontWeight: 700 }}>COMPLETED</span>}
+                        {step.pending && <span className="badge bg-warning-subtle text-warning small" style={{ fontSize: '0.875rem', fontWeight: 700 }}>IN PROGRESS</span>}
                       </div>
                     </div>
                   ))}
@@ -377,7 +377,7 @@ const AgentDashboard = () => {
           {/* Profile Tab */}
           {activeTab === 'profile' && isApproved && (
             <div className="agent-card">
-              <span className="badge bg-primary-subtle text-primary mb-3 px-3 py-2 fw-800" style={{ fontSize: '0.62rem' }}>IDENTITY PROFILE</span>
+              <span className="badge bg-primary-subtle text-primary mb-3 px-3 py-2 fw-800" style={{ fontSize: '0.875rem' }}>IDENTITY PROFILE</span>
               <div className="row g-4 mt-1">
                 <div className="col-md-6 border-end">
                   {[
@@ -387,25 +387,25 @@ const AgentDashboard = () => {
                     { label: 'Date of Birth', value: agentInfo.dob, icon: Calendar }
                   ].map((item, i) => (
                     <div key={i} className="mb-4">
-                      <label className="text-muted fw-700 uppercase d-flex align-items-center gap-1 mb-1" style={{ fontSize: '0.58rem', letterSpacing: '0.08em' }}>
+                      <label className="text-muted fw-700 uppercase d-flex align-items-center gap-1 mb-1" style={{ fontSize: '0.875rem', letterSpacing: '0.08em' }}>
                         <item.icon size={11} />
                         {item.label}
                       </label>
-                      <span className="fw-600 text-dark">{item.value}</span>
+                      <span className="fw-600 text-dark" style={{ fontSize: '1rem' }}>{item.value}</span>
                     </div>
                   ))}
                 </div>
                 <div className="col-md-6">
                   <div className="mb-4">
-                    <label className="text-muted fw-700 uppercase d-flex align-items-center gap-1 mb-1" style={{ fontSize: '0.58rem', letterSpacing: '0.08em' }}>
+                    <label className="text-muted fw-700 uppercase d-flex align-items-center gap-1 mb-1" style={{ fontSize: '0.875rem', letterSpacing: '0.08em' }}>
                       <MapPin size={11} />
                       Resident Address
                     </label>
-                    <p className="fw-600 text-dark small" style={{ lineHeight: 1.6 }}>{agentInfo.address}<br />{agentInfo.city}, {agentInfo.state} - {agentInfo.pincode}</p>
+                    <p className="fw-600 text-dark small" style={{ lineHeight: 1.6, fontSize: '1rem' }}>{agentInfo.address}<br />{agentInfo.city}, {agentInfo.state} - {agentInfo.pincode}</p>
                   </div>
                   <div className="p-3 rounded-4" style={{ background: 'var(--agent-surface-2)', border: '1px solid var(--agent-border)' }}>
-                    <span className="fw-800 small d-block mb-2" style={{ fontSize: '0.72rem' }}>Portal Access Link</span>
-                    <code className="p-2 rounded d-block fw-600" style={{ fontSize: '0.68rem', background: 'white', color: 'var(--agent-accent)', border: '1px solid var(--agent-border)' }}>{window.location.origin}/agent/login</code>
+                    <span className="fw-800 small d-block mb-2" style={{ fontSize: '0.875rem' }}>Portal Access Link</span>
+                    <code className="p-2 rounded d-block fw-600" style={{ fontSize: '0.875rem', background: 'white', color: 'var(--agent-accent)', border: '1px solid var(--agent-border)' }}>{window.location.origin}/agent/login</code>
                   </div>
                 </div>
               </div>
@@ -430,14 +430,14 @@ const AgentDashboard = () => {
                       )}
                     </div>
                     <div className="p-3">
-                      <h6 className="fw-800 small mb-1" style={{ fontSize: '0.82rem' }}>{kycDoc.name}</h6>
-                      <span className={`small fw-bold ${kycDoc.url ? 'text-success' : 'text-danger'}`} style={{ fontSize: '0.58rem', letterSpacing: '0.04em' }}>
+                      <h6 className="fw-800 small mb-1" style={{ fontSize: '1rem' }}>{kycDoc.name}</h6>
+                      <span className={`small fw-bold ${kycDoc.url ? 'text-success' : 'text-danger'}`} style={{ fontSize: '0.875rem', letterSpacing: '0.04em' }}>
                         {kycDoc.url ? '✓ VERIFIED' : '⚠ MISSING'}
                       </span>
                       {kycDoc.url && (
                         <button
                           className="btn btn-link btn-sm p-0 d-block mt-2 text-decoration-none fw-700"
-                          style={{ fontSize: '0.68rem', color: 'var(--agent-accent)' }}
+                          style={{ fontSize: '0.875rem', color: 'var(--agent-accent)' }}
                           onClick={async () => {
                             const url = await getImageViewUrl(kycDoc.url);
                             if (url) window.open(url, '_blank');
@@ -460,10 +460,10 @@ const AgentDashboard = () => {
               <div className="digital-id-card text-start">
                 <div className="d-flex justify-content-between mb-4 border-bottom border-white border-opacity-20 pb-3">
                   <div>
-                    <span className="fw-900 d-block small tracking-wider" style={{ letterSpacing: '0.08em' }}>SOS INFRABULLS</span>
-                    <span className="text-white-50 text-uppercase fw-700" style={{ fontSize: '0.5rem' }}>Digital Partner</span>
+                    <span className="fw-900 d-block small tracking-wider" style={{ fontSize: '1rem', letterSpacing: '0.08em' }}>SOS INFRABULLS</span>
+                    <span className="text-white-50 text-uppercase fw-700" style={{ fontSize: '0.875rem' }}>Digital Partner</span>
                   </div>
-                  <span className="badge bg-success small" style={{ fontSize: '0.5rem', height: 'fit-content' }}>ACTIVE</span>
+                  <span className="badge bg-success small" style={{ fontSize: '0.875rem', height: 'fit-content' }}>ACTIVE</span>
                 </div>
 
                 <div className="d-flex gap-4 align-items-center">
@@ -471,28 +471,28 @@ const AgentDashboard = () => {
                     <S3Image src={agentInfo.photographUrl} className="w-100 h-100 object-cover" />
                   </div>
                   <div className="flex-grow-1 min-w-0">
-                    <label className="text-blue-100 opacity-50 uppercase fw-700 d-block mb-1" style={{ fontSize: '0.48rem' }}>Agent Identity</label>
-                    <h5 className="fw-800 mb-3" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{agentInfo.name}</h5>
+                    <label className="text-blue-100 opacity-50 uppercase fw-700 d-block mb-1" style={{ fontSize: '0.875rem' }}>Agent Identity</label>
+                    <h5 className="fw-800 mb-3" style={{ fontSize: '1.25rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{agentInfo.name}</h5>
 
                     <div className="row g-2">
                       <div className="col-6">
-                        <label className="text-blue-100 opacity-50 uppercase fw-700 d-block mb-1" style={{ fontSize: '0.48rem' }}>Agent ID</label>
-                        <span className="bg-white bg-opacity-10 px-2 py-1 rounded d-block text-center fw-600 font-monospace" style={{ fontSize: '0.62rem' }}>{agentInfo.agentId}</span>
+                        <label className="text-blue-100 opacity-50 uppercase fw-700 d-block mb-1" style={{ fontSize: '0.875rem' }}>Agent ID</label>
+                        <span className="bg-white bg-opacity-10 px-2 py-1 rounded d-block text-center fw-600 font-monospace" style={{ fontSize: '0.875rem' }}>{agentInfo.agentId}</span>
                       </div>
                       <div className="col-6">
-                        <label className="text-blue-100 opacity-50 uppercase fw-700 d-block mb-1" style={{ fontSize: '0.48rem' }}>Referral Code</label>
-                        <span className="bg-white bg-opacity-10 px-2 py-1 rounded d-block text-center fw-600 font-monospace" style={{ fontSize: '0.62rem' }}>{agentInfo.ownReferralCode}</span>
+                        <label className="text-blue-100 opacity-50 uppercase fw-700 d-block mb-1" style={{ fontSize: '0.875rem' }}>Referral Code</label>
+                        <span className="bg-white bg-opacity-10 px-2 py-1 rounded d-block text-center fw-600 font-monospace" style={{ fontSize: '0.875rem' }}>{agentInfo.ownReferralCode}</span>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-4 pt-3 border-top border-white border-opacity-10 d-flex justify-content-between text-white-50 uppercase fw-700" style={{ fontSize: '0.48rem' }}>
+                <div className="mt-4 pt-3 border-top border-white border-opacity-10 d-flex justify-content-between text-white-50 uppercase fw-700" style={{ fontSize: '0.875rem' }}>
                   <span>Joined: {agentInfo.joiningDate}</span>
                   <span>Valid Property Node</span>
                 </div>
               </div>
-              <p className="mt-4 text-muted small" style={{ fontSize: '0.75rem' }}>This digital card is automatically generated and verified by the HR office.</p>
+              <p className="mt-4 text-muted small" style={{ fontSize: '0.875rem' }}>This digital card is automatically generated and verified by the HR office.</p>
             </div>
           )}
 
@@ -500,8 +500,8 @@ const AgentDashboard = () => {
           {activeTab === 'team' && isApproved && (
             <div className="agent-card">
               <div className="d-flex justify-content-between align-items-center mb-4">
-                <h6 className="fw-800 m-0" style={{ letterSpacing: '-0.02em' }}>My Direct Referrals</h6>
-                <span className="badge bg-primary-subtle text-primary fw-800 px-3" style={{ fontSize: '0.62rem' }}>{team.length} Member{team.length !== 1 ? 's' : ''}</span>
+                <h6 className="fw-800 m-0" style={{ letterSpacing: '-0.02em', fontSize: '1.25rem' }}>My Direct Referrals</h6>
+                <span className="badge bg-primary-subtle text-primary fw-800 px-3" style={{ fontSize: '0.875rem' }}>{team.length} Member{team.length !== 1 ? 's' : ''}</span>
               </div>
 
               {teamLoading ? (
@@ -511,8 +511,8 @@ const AgentDashboard = () => {
               ) : team.length === 0 ? (
                 <div className="text-center py-5 rounded-4" style={{ border: '1px dashed var(--agent-border)', background: 'var(--agent-surface-3)' }}>
                   <Users size={44} className="mb-3" style={{ color: 'var(--agent-text-dim)', opacity: 0.3 }} />
-                  <h6 className="fw-700" style={{ color: 'var(--agent-text-muted)' }}>No team members yet</h6>
-                  <p className="text-muted small mx-auto" style={{ maxWidth: '300px', lineHeight: 1.6 }}>
+                  <h6 className="fw-700" style={{ color: 'var(--agent-text-muted)', fontSize: '1rem' }}>No team members yet</h6>
+                  <p className="text-muted small mx-auto" style={{ maxWidth: '300px', lineHeight: 1.6, fontSize: '0.875rem' }}>
                     Share your referral code <strong style={{ color: 'var(--agent-accent)' }}>{agentInfo.ownReferralCode}</strong> with others to build your network.
                   </p>
                 </div>
@@ -521,10 +521,10 @@ const AgentDashboard = () => {
                   <table className="table table-borderless align-middle m-0">
                     <thead>
                       <tr className="border-bottom">
-                        <th className="text-muted small fw-700 uppercase pb-3" style={{ fontSize: '0.58rem', letterSpacing: '0.08em' }}>Member Identity</th>
-                        <th className="text-muted small fw-700 uppercase pb-3" style={{ fontSize: '0.58rem', letterSpacing: '0.08em' }}>Agent ID</th>
-                        <th className="text-muted small fw-700 uppercase pb-3" style={{ fontSize: '0.58rem', letterSpacing: '0.08em' }}>Contact</th>
-                        <th className="text-muted small fw-700 uppercase pb-3" style={{ fontSize: '0.58rem', letterSpacing: '0.08em' }}>Status</th>
+                        <th className="text-muted small fw-700 uppercase pb-3" style={{ fontSize: '0.875rem', letterSpacing: '0.08em' }}>Member Identity</th>
+                        <th className="text-muted small fw-700 uppercase pb-3" style={{ fontSize: '0.875rem', letterSpacing: '0.08em' }}>Agent ID</th>
+                        <th className="text-muted small fw-700 uppercase pb-3" style={{ fontSize: '0.875rem', letterSpacing: '0.08em' }}>Contact</th>
+                        <th className="text-muted small fw-700 uppercase pb-3" style={{ fontSize: '0.875rem', letterSpacing: '0.08em' }}>Status</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -536,23 +536,23 @@ const AgentDashboard = () => {
                                 {member.photographUrl ? (
                                   <S3Image src={member.photographUrl} className="w-100 h-100 object-cover" />
                                 ) : (
-                                  <div className="w-100 h-100 d-flex align-items-center justify-content-center fw-bold small" style={{ color: 'var(--agent-accent)' }}>
+                                  <div className="w-100 h-100 d-flex align-items-center justify-content-center fw-bold small" style={{ color: 'var(--agent-accent)', fontSize: '1rem' }}>
                                     {member.fullName?.charAt(0)}
                                   </div>
                                 )}
                               </div>
                               <div>
-                                <span className="fw-700 small d-block" style={{ fontSize: '0.82rem' }}>{member.fullName}</span>
-                                <span className="text-muted" style={{ fontSize: '0.62rem' }}>{member.email}</span>
+                                <span className="fw-700 small d-block" style={{ fontSize: '1rem' }}>{member.fullName}</span>
+                                <span className="text-muted" style={{ fontSize: '0.875rem' }}>{member.email}</span>
                               </div>
                             </div>
                           </td>
                           <td className="py-3">
-                            <span className="font-monospace small px-2 py-1 rounded" style={{ fontSize: '0.72rem', background: 'var(--agent-surface-2)', border: '1px solid var(--agent-border)' }}>{member.agentId}</span>
+                            <span className="font-monospace small px-2 py-1 rounded" style={{ fontSize: '0.875rem', background: 'var(--agent-surface-2)', border: '1px solid var(--agent-border)' }}>{member.agentId}</span>
                           </td>
-                          <td className="py-3 fw-600 small" style={{ fontSize: '0.78rem' }}>{member.mobile1}</td>
+                          <td className="py-3 fw-600 small" style={{ fontSize: '0.875rem' }}>{member.mobile1}</td>
                           <td className="py-3">
-                            <span className={`badge rounded-pill px-2 py-1 ${member.status === 'Approved' ? 'bg-success-subtle text-success' : 'bg-warning-subtle text-warning'}`} style={{ fontSize: '0.58rem', fontWeight: 700 }}>
+                            <span className={`badge rounded-pill px-2 py-1 ${member.status === 'Approved' ? 'bg-success-subtle text-success' : 'bg-warning-subtle text-warning'}`} style={{ fontSize: '0.875rem', fontWeight: 700 }}>
                               {member.status}
                             </span>
                           </td>
@@ -577,11 +577,11 @@ const AgentDashboard = () => {
 
               {!hasSetPassword ? (
                 <form onSubmit={handleSetPassword}>
-                  {pwError && <div className="alert alert-danger small border-0 py-2 rounded-3" style={{ background: 'rgba(239,68,68,0.06)', color: '#ef4444' }}>{pwError}</div>}
-                  {pwSuccess && <div className="alert alert-success small border-0 py-2 rounded-3" style={{ background: 'rgba(16,185,129,0.06)', color: '#059669' }}>Security credentials updated successfully!</div>}
+                  {pwError && <div className="alert alert-danger small border-0 py-2 rounded-3" style={{ background: 'rgba(239,68,68,0.06)', color: '#ef4444', fontSize: '0.875rem' }}>{pwError}</div>}
+                  {pwSuccess && <div className="alert alert-success small border-0 py-2 rounded-3" style={{ background: 'rgba(16,185,129,0.06)', color: '#059669', fontSize: '0.875rem' }}>Security credentials updated successfully!</div>}
 
                   <div className="mb-3">
-                    <label className="fw-700 text-muted small mb-1 d-block" style={{ fontSize: '0.68rem' }}>Current Temporary Password</label>
+                    <label className="fw-700 text-muted small mb-1 d-block" style={{ fontSize: '0.875rem' }}>Current Temporary Password</label>
                     <input
                       type="password"
                       className="agent-input"
@@ -592,7 +592,7 @@ const AgentDashboard = () => {
                     />
                   </div>
                   <div className="mb-3">
-                    <label className="fw-700 text-muted small mb-1 d-block" style={{ fontSize: '0.68rem' }}>New Secure Password</label>
+                    <label className="fw-700 text-muted small mb-1 d-block" style={{ fontSize: '0.875rem' }}>New Secure Password</label>
                     <input
                       type="password"
                       className="agent-input"
@@ -603,7 +603,7 @@ const AgentDashboard = () => {
                     />
                   </div>
                   <div className="mb-4">
-                    <label className="fw-700 text-muted small mb-1 d-block" style={{ fontSize: '0.68rem' }}>Verify Password</label>
+                    <label className="fw-700 text-muted small mb-1 d-block" style={{ fontSize: '0.875rem' }}>Verify Password</label>
                     <input
                       type="password"
                       className="agent-input"
@@ -613,7 +613,7 @@ const AgentDashboard = () => {
                       required
                     />
                   </div>
-                  <button className="btn w-100 py-2 fw-bold" disabled={pwLoading} style={{ background: 'var(--agent-accent)', color: 'white', borderRadius: 'var(--agent-radius)', border: 'none', boxShadow: '0 4px 12px rgba(17,116,214,0.25)' }}>
+                  <button className="btn w-100 py-2 fw-bold" disabled={pwLoading} style={{ background: 'var(--agent-accent)', color: 'white', borderRadius: 'var(--agent-radius)', border: 'none', boxShadow: '0 4px 12px rgba(17,116,214,0.25)', fontSize: '0.875rem' }}>
                     {pwLoading ? 'Securing Account...' : 'Set Password Permanently'}
                   </button>
                 </form>
@@ -622,8 +622,8 @@ const AgentDashboard = () => {
                   <div className="rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style={{ width: '48px', height: '48px', background: 'rgba(16,185,129,0.08)' }}>
                     <Lock size={22} className="text-success" />
                   </div>
-                  <h6 className="fw-800 small" style={{ fontSize: '0.82rem' }}>Password Secured</h6>
-                  <p className="text-muted small m-0" style={{ lineHeight: 1.6 }}>Your secure password has been registered. It cannot be modified without HR intervention for security reasons.</p>
+                  <h6 className="fw-800 small" style={{ fontSize: '1rem' }}>Password Secured</h6>
+                  <p className="text-muted small m-0" style={{ lineHeight: 1.6, fontSize: '0.875rem' }}>Your secure password has been registered. It cannot be modified without HR intervention for security reasons.</p>
                 </div>
               )}
             </div>

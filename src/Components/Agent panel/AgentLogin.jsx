@@ -23,7 +23,7 @@ const AgentLogin = () => {
       return;
     }
 
-    if (loginId.length > 20 || password.length > 20) {
+    if (loginId.length > 50 || password.length > 20) {
       setError("Credentials exceed maximum length of 20 characters.");
       return;
     }
@@ -74,7 +74,7 @@ const AgentLogin = () => {
                 value={loginId}
                 onChange={(e) => setLoginId(e.target.value)}
                 required
-                maxLength={20}
+                maxLength={50}
               />
             </div>
 

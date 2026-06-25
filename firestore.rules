@@ -8,32 +8,44 @@ service cloud.firestore {
       return request.auth != null;
     }
 
-    // Helper to check if a user is an admin
-    // Note: This assumes you have a document in 'agents' or 'users' collection 
-    // with UID as the ID and a field role: 'admin'
+    // Helper to check if a user is an admin (checks agents, users, and custom claims)
     function isAdmin() {
-      return isAuthenticated() && 
-        get(/databases/$(database)/documents/agents/$(request.auth.uid)).data.role == 'admin';
+      return isAuthenticated() && (
+        request.auth.token.role == 'admin' ||
+        (exists(/databases/$(database)/documents/agents/$(request.auth.uid)) && get(/databases/$(database)/documents/agents/$(request.auth.uid)).data.role == 'admin') ||
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin')
+      );
+    }
+
+    // Helper to check if a user is HR (checks agents, users, and custom claims)
+    function isHR() {
+      return isAuthenticated() && (
+        request.auth.token.role == 'hr' ||
+        (exists(/databases/$(database)/documents/agents/$(request.auth.uid)) && get(/databases/$(database)/documents/agents/$(request.auth.uid)).data.role == 'hr') ||
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'hr')
+      );
+    }
+
+    // Helper to check if a user is HR or Admin
+    function isHRorAdmin() {
+      return isAdmin() || isHR();
     }
 
     // Agent profile rules
     match /agents/{agentId} {
-      // Admin can do anything
-      allow read, write: if isAdmin();
+      // Admin and HR can manage agents (add, edit, delete)
+      allow read, write: if isHRorAdmin();
       
       // Agents can read their own profile
       allow read: if isAuthenticated() && request.auth.uid == agentId;
       
-      // Agents can read members of their team (where team member's referralCode matches agent's ownReferralCode)
-      // This is a bit complex for a single rule, but we can allow read 
-      // if the agent being read matches the logged-in agent's ownReferralCode.
-      // However, for simplicity and safety:
+      // Allow listing profiles for authenticated users (required for some team views)
       allow list: if isAuthenticated(); 
     }
 
     // Partner Requests rules
     match /partnerRequests/{requestId} {
-      allow read, write: if isAdmin();
+      allow read, write: if isHRorAdmin();
       // Allow public to submit requests
       allow create: if true; 
     }

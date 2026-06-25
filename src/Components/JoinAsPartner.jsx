@@ -153,7 +153,7 @@ const JoinAsPartner = () => {
       setPreviews({ photograph: null, panCard: null, aadhaarCard: null });
 
       setTimeout(() => navigate('/thank-you', {
-        state: { loginId, emailSent: emailResult.success, agentId, ownReferralCode },
+        state: { loginId, emailSent: emailResult.success, agentId, ownReferralCode, associateName: fullName },
       }), 500);
     } catch (error) {
       console.error('Error submitting form:', error);

@@ -53,9 +53,14 @@ export const unapproveAgent = (agentUid, partnerRequestId) =>
   updateAgentStatus(agentUid, 'Pending', partnerRequestId);
 
 export const deleteAgent = async (agentUid, partnerRequestId = null) => {
-  await deleteDoc(doc(db, 'agents', agentUid));
-  if (partnerRequestId) {
-    await deleteDoc(doc(db, 'partnerRequests', partnerRequestId));
+  try {
+    await deleteDoc(doc(db, 'agents', agentUid));
+    if (partnerRequestId) {
+      await deleteDoc(doc(db, 'partnerRequests', partnerRequestId));
+    }
+  } catch (err) {
+    console.error("Error in deleteAgent helper:", err);
+    throw err;
   }
 };
 

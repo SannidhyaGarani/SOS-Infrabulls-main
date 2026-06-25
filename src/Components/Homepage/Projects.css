@@ -194,16 +194,16 @@ body {
 .project-card {
     position: relative;
     flex: 0 0 var(--closed);
-    height: 34rem;
+    height: 28rem;
     border-radius: var(--radius-xl);
     overflow: hidden;
     cursor: pointer;
     background: white;
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-sm);
     transition: all var(--speed);
     scroll-snap-align: center;
     isolation: isolate;
-    border: 1px solid rgba(226, 232, 240, 0.6);
+    border: 1px solid rgba(226, 232, 240, 0.4);
 }
 
 .project-card:hover {
@@ -213,8 +213,8 @@ body {
 
 .project-card.active {
     flex-basis: var(--open);
-    box-shadow: 0 30px 80px rgba(17, 116, 214, 0.2), 0 0 0 1px rgba(17, 116, 214, 0.1);
-    border-color: rgba(17, 116, 214, 0.2);
+    box-shadow: 0 40px 100px rgba(15, 23, 42, 0.15), 0 0 0 1px rgba(17, 116, 214, 0.1);
+    border-color: rgba(17, 116, 214, 0.15);
 }
 
 .project-card__bg {
@@ -235,8 +235,8 @@ body {
     position: absolute;
     inset: 0;
     background: linear-gradient(to top,
-            rgba(15, 23, 42, 0.95) 0%,
-            rgba(15, 23, 42, 0.7) 40%,
+            rgba(15, 23, 42, 0.98) 0%,
+            rgba(15, 23, 42, 0.6) 50%,
             transparent 100%);
     z-index: 1;
 }
@@ -297,15 +297,16 @@ body {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(12px);
-    padding: 0.75rem 1rem;
-    border-radius: var(--radius-md);
-    font-size: 0.875rem;
-    font-weight: 600;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    padding: 0.6rem 1.1rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 700;
     color: var(--text-primary);
-    box-shadow: var(--shadow-sm);
-    border: 1px solid rgba(226, 232, 240, 0.7);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    letter-spacing: 0.02em;
 }
 
 .stat-item svg {
@@ -317,7 +318,7 @@ body {
 .project-card__content {
     position: relative;
     height: 100%;
-    padding: 2.5rem;
+    padding: 2.25rem;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -355,13 +356,13 @@ body {
 }
 
 .project-card__title {
-    font-size: 2.75rem;
+    font-size: 2.25rem;
     font-weight: 800;
     color: white;
-    margin-bottom: 0.75rem;
-    line-height: 1.1;
-    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
-    font-family: 'Playfair Display', serif;
+    margin-bottom: 0.5rem;
+    line-height: 1.15;
+    text-shadow: 2px 4px 20px rgba(0, 0, 0, 0.4);
+    font-family: 'Outfit', sans-serif;
 }
 
 .project-location {
@@ -545,6 +546,12 @@ body {
 .view-all-link:hover {
     color: white;
     gap: 1.1rem;
+    box-shadow: 0 8px 25px rgba(17, 116, 214, 0.3);
+}
+
+.view-all-link span {
+    position: relative;
+    z-index: 1;
 }
 
 .view-all-link:hover::before {
@@ -675,7 +682,7 @@ body {
     }
 
     .project-card.active {
-        min-height: 520px;
+        min-height: 440px;
     }
 
     .project-card__content {

@@ -123,7 +123,8 @@ const HRDashboard = () => {
       await loadAgents();
       if (selectedAgent?.id === agent.id) setSelectedAgent(null);
     } catch (err) {
-      alert('Failed to delete agent.');
+      console.error('Deletion failed detailed error:', err);
+      alert(`Failed to delete agent: ${err.message || 'Unknown error'}`);
     } finally {
       setActionLoading(false);
     }
@@ -389,6 +390,14 @@ const HRDashboard = () => {
                           <button className="btn-hr-view" onClick={() => handleView(agent)}>
                             <Eye size={14} /> View
                           </button>
+                          <button 
+                            className="btn-hr-delete" 
+                            onClick={() => handleDelete(agent)}
+                            disabled={actionLoading}
+                            title="Delete Agent"
+                          >
+                            <Trash2 size={14} />
+                          </button>
                           {agent.status === 'Approved' && (
                             <>
                               <button 
@@ -404,14 +413,6 @@ const HRDashboard = () => {
                                 disabled={actionLoading}
                               >
                                 Unapprove
-                              </button>
-                              <button 
-                                className="btn-hr-delete" 
-                                onClick={() => handleDelete(agent)}
-                                disabled={actionLoading}
-                                title="Delete Agent"
-                              >
-                                <Trash2 size={14} />
                               </button>
                             </>
                           )}
